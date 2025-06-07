@@ -1,0 +1,121 @@
+/* Coming Soon Page Styles */
+.coming-soon-hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 160px 0 100px;
+    background: var(--background-color);
+    overflow: hidden;
+    text-align: center;
+}
+
+.coming-soon-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+    z-index: 1;
+}
+
+.coming-soon-hero .container {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.coming-soon-hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+}
+
+.coming-soon-hero p {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+.coming-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 3rem;
+    background: var(--gradient-primary);
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 32px rgba(229, 141, 46, 0.3);
+    letter-spacing: 2px;
+    margin: 2rem 0;
+    animation: pulse 2s infinite;
+}
+
+.coming-soon i {
+    font-size: 1.8rem;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(229, 141, 46, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(229, 141, 46, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(229, 141, 46, 0);
+    }
+}
+
+.cta-buttons {
+    margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .coming-soon-hero h1 {
+        font-size: 2.5rem;
+        padding: 0 1rem;
+    }
+
+    .coming-soon-hero p {
+        font-size: 1.2rem;
+        padding: 0 1rem;
+    }
+
+    .coming-soon {
+        font-size: 1.5rem;
+        padding: 1rem 2rem;
+    }
+
+    .coming-soon i {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .coming-soon-hero h1 {
+        font-size: 2rem;
+    }
+
+    .coming-soon-hero p {
+        font-size: 1rem;
+    }
+
+    .coming-soon {
+        font-size: 1.2rem;
+        padding: 0.875rem 1.5rem;
+    }
+
+    .coming-soon i {
+        font-size: 1.1rem;
+    }
+}

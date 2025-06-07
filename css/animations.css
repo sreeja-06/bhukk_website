@@ -116,3 +116,148 @@ html {
 .btn-primary {
     animation: pulse 2s infinite;
 }
+
+/* Enhanced Animations */
+@keyframes fadeUpIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.feature-card, .partner-card {
+    animation: fadeUpIn 0.6s ease forwards;
+}
+
+.hero h1 {
+    animation: fadeUpIn 0.8s ease forwards;
+}
+
+.hero p {
+    animation: fadeUpIn 0.8s 0.2s ease forwards;
+    opacity: 0;
+}
+
+.cta-buttons {
+    animation: fadeUpIn 0.8s 0.4s ease forwards;
+    opacity: 0;
+}
+
+.btn-primary {
+    background-size: 200% 200%;
+    animation: gradientShift 5s ease infinite;
+}
+
+/* Smooth Hover Transitions */
+.feature-card i, .partner-card i {
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover i, .partner-card:hover i {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Loading Animation */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+/* Glassmorphism Animations */
+@keyframes glassReveal {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0);
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(12px);
+        transform: scale(1);
+    }
+}
+
+.glass-animate {
+    animation: glassReveal 0.6s ease-out forwards;
+}
+
+/* Hover effect for feature cards only */
+.feature-card:hover {
+    background: rgba(21, 21, 21, 0.8);
+    transform: translateY(-5px);
+}
+
+/* Loading Animation for Glassmorphism */
+.loading-glass {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-glass::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(229, 141, 46, 0.1),
+        transparent
+    );
+    animation: loading 1.5s infinite;
+}
+
+/* Slide up animation for chat interface */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

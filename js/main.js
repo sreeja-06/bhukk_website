@@ -1,18 +1,19 @@
 // Main JavaScript file for BHUKK website
 
 // Wait for DOM to load
+// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize theme
+    console.log('DOM Content Loaded');
+    
+    // Initialize mobile menu first
+    initializeMobileMenu();
+    
+    // Initialize other features
     initializeTheme();
-    
-    // Initialize scroll animations
     initializeScrollAnimations();
-    
-    // Initialize AI chat assistant
     initializeAIAssistant();
-    
-    // Initialize navbar transparency
     initializeNavbar();
+    initializeGlassEffects();
 });
 
 // Theme toggling functionality
@@ -39,177 +40,64 @@ function initializeTheme() {
 
 // Scroll animations
 function initializeScrollAnimations() {
-    const elements = document.querySelectorAll('.feature-card, .app-feature, .benefit, .partner-card');
+    // Regular fade-in animation for most elements
+    const regularElements = document.querySelectorAll('.feature-card, .app-feature, .benefit');
+    const partnerCards = document.querySelectorAll('.partner-card');
     
-    const observer = new IntersectionObserver((entries) => {
+    // Regular fade animation for standard elements
+    const standardObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in');
-                observer.unobserve(entry.target);
+                standardObserver.unobserve(entry.target);
             }
         });
     }, {
         threshold: 0.1
     });
     
-    elements.forEach(element => {
-        observer.observe(element);
-    });
-}
+    regularElements.forEach(element => {
+        standardObserver.observe(element);
+    });    // Modern 3D animation for partner cards
+    const partnerObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Add stagger delay based on index
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0) scale(1)';
+                }, index * 150); // 150ms delay between each card
+                
+                // Enhanced hover effects with better animation
+                entry.target.addEventListener('mouseenter', (e) => {
+                    e.target.style.transform = 'translateY(-10px) scale(1.05)';
+                });
+                
+                entry.target.addEventListener('mouseleave', (e) => {
+                    e.target.style.transform = 'translateY(0) scale(1)';
+                });
 
-// AI Chat Assistant
-function initializeAIAssistant() {
-    const aiToggle = document.querySelector('.ai-toggle');
-    let chatOpen = false;
-    
-    aiToggle.addEventListener('click', function() {
-        if (!chatOpen) {
-            // Create chat interface
-            const chatInterface = document.createElement('div');
-            chatInterface.className = 'chat-interface';
-            chatInterface.innerHTML = `
-                <div class="chat-header">
-                    <h3>BHUKK Assistant</h3>
-                    <button class="close-chat">&times;</button>
-                </div>
-                <div class="chat-body">
-                    <div class="chat-sidebar">
-                        <h4>Topics</h4>
-                        <ul class="faq-categories">
-                            ${window.bhukkAssistant.getCategories().map(category => 
-                                `<li class="faq-category" data-category="${category}">
-                                    ${category.charAt(0).toUpperCase() + category.slice(1)}
-                                </li>`
-                            ).join('')}
-                        </ul>
-                    </div>
-                    <div class="chat-main">
-                        <div class="chat-messages"></div>
-                        <div class="chat-input">
-                            <input type="text" placeholder="Ask me anything...">
-                            <button><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.querySelector('.ai-assistant').appendChild(chatInterface);
-            chatOpen = true;
-
-            // Add welcome message
-            addMessage("Hi! I'm your BHUKK Assistant. I can help you with questions about ordering, liquor delivery, payments, and your account. What would you like to know about?", false);
-
-            // Add event listeners
-            const chatInput = chatInterface.querySelector('.chat-input input');
-            const sendButton = chatInterface.querySelector('.chat-input button');
-            const categories = chatInterface.querySelectorAll('.faq-category');            // Handle message sending
-            function sendMessage() {
-                const message = chatInput.value.trim();
-                if (message) {
-                    addMessage(message, true);
-                    const response = window.bhukkAssistant.processMessage(message);
-                    handleAssistantResponse(response);
-                    chatInput.value = '';
-                    chatInput.focus();
-                }
+                // Remove existing event listeners to prevent duplicates
+                const card = entry.target;
+                const newCard = card.cloneNode(true);
+                card.parentNode.replaceChild(newCard, card);
+                partnerObserver.observe(newCard);
             }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '20px'
+    });
 
-            // Send button click
-            sendButton.addEventListener('click', sendMessage);
-
-            // Enter key press
-            chatInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            });            // Category selection
-            categories.forEach(category => {
-                category.addEventListener('click', function() {
-                    const categoryName = this.dataset.category;
-                    const faqs = window.bhukkAssistant.getFAQsByCategory(categoryName);
-                    
-                    // Clear previous selection
-                    categories.forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    handleAssistantResponse({
-                        type: 'category',
-                        message: `Here are some common questions about ${categoryName}:`,
-                        faqs: faqs
-                    });
-                });
-            });
-
-            // Close button
-            chatInterface.querySelector('.close-chat').addEventListener('click', function() {
-                chatInterface.remove();
-                chatOpen = false;
-            });
-
-            // Focus input
-            chatInput.focus();
-        }
+    // Initialize partner cards with improved starting styles
+    partnerCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        partnerObserver.observe(card);
     });
 }
 
-// Add message to chat
-function addMessage(message, isUser) {
-    const messagesContainer = document.querySelector('.chat-messages');
-    const messageElement = document.createElement('div');
-    messageElement.className = `message ${isUser ? 'user' : 'assistant'}`;
-    
-    if (typeof message === 'object' && message.nodeType === 1) {
-        messageElement.appendChild(message);
-    } else {
-        messageElement.textContent = message;
-    }
-    
-    messagesContainer.appendChild(messageElement);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    
-    // Add to history
-    window.bhukkAssistant.addToHistory(message, isUser);
-}
-
-// Handle assistant responses
-function handleAssistantResponse(response) {    switch (response.type) {
-        case 'category':
-            addMessage(response.message, false);
-            const faqList = document.createElement('ul');
-            faqList.className = 'faq-list';
-            response.faqs.forEach(faq => {
-                const li = document.createElement('li');
-                li.className = 'faq-item';
-                li.textContent = faq.question;
-                li.addEventListener('click', () => {
-                    addMessage(faq.question, true);
-                    handleAssistantResponse({type: 'answer', message: faq.answer});
-                });
-                faqList.appendChild(li);
-            });
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message assistant';
-            messageDiv.appendChild(faqList);
-            document.querySelector('.chat-messages').appendChild(messageDiv);
-            break;
-            
-        case 'answer':
-            addMessage(response.message, false);
-            break;
-            
-        case 'help':
-            addMessage(response.message, false);
-            const categoryList = `<ul class="faq-list">
-                ${response.categories.map(category => 
-                    `<li class="faq-item" onclick="addMessage('Tell me about ${category}', true)">
-                        ${category.charAt(0).toUpperCase() + category.slice(1)}
-                    </li>`
-                ).join('')}
-            </ul>`;
-            addMessage(categoryList, false);
-            break;
-    }
-}
 
 // Navbar transparency
 function initializeNavbar() {
@@ -225,6 +113,45 @@ function initializeNavbar() {
         }
     });
 }
+
+// Initialize glass effects
+function initializeGlassEffects() {
+    const glassElements = document.querySelectorAll('.feature-card, .partner-card, .chat-container');
+    glassElements.forEach(el => {
+        el.classList.add('glass-animate');
+    });
+}
+
+// Add loading states
+function setLoading(element, isLoading) {
+    if (isLoading) {
+        element.classList.add('loading-glass');
+    } else {
+        element.classList.remove('loading-glass');
+    }
+}
+
+// Optimize backdrop-filter performance
+const glassContainers = document.querySelectorAll('.feature-card, .partner-card, .chat-container');
+const observerOptions = {
+    root: null,
+    rootMargin: '50px',
+    threshold: 0.1
+};
+
+const glassObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.willChange = 'backdrop-filter';
+        } else {
+            entry.target.style.willChange = 'auto';
+        }
+    });
+}, observerOptions);
+
+glassContainers.forEach(container => {
+    glassObserver.observe(container);
+});
 
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -250,6 +177,100 @@ if (newsletterForm) {
             // Here you would typically send this to your backend
             alert('Thank you for subscribing!');
             this.reset();
+        }
+    });
+}
+
+// Mobile Menu Toggle
+function initializeMobileMenu() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinksAnchors = document.querySelectorAll('.nav-links a');
+    const icon = mobileMenuBtn.querySelector('i');
+    let isMenuOpen = false;
+    let isTransitioning = false;
+
+    function toggleMenu(force = null) {
+        if (isTransitioning) return;
+        
+        isTransitioning = true;
+        isMenuOpen = force !== null ? force : !isMenuOpen;
+        
+        if (isMenuOpen) {
+            navLinks.classList.add('active');
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+            document.body.style.overflow = 'hidden';
+        } else {
+            navLinks.classList.remove('active');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+            document.body.style.overflow = '';
+        }
+
+        // Reset transitioning state after animation completes
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 400); // Match this with your CSS transition duration
+    }
+    
+    // Menu button click
+    mobileMenuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMenu();
+    });
+    
+    // Close menu when clicking nav links
+    navLinksAnchors.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const href = link.getAttribute('href');
+            toggleMenu(false);
+            
+            // Navigate after menu closes
+            setTimeout(() => {
+                if (href.startsWith('#')) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                } else {
+                    window.location.href = href;
+                }
+            }, 400);
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (isMenuOpen && 
+            !navLinks.contains(e.target) && 
+            !mobileMenuBtn.contains(e.target)) {
+            toggleMenu(false);
+        }
+    });
+
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            if (window.innerWidth > 768 && isMenuOpen) {
+                toggleMenu(false);
+            }
+        }, 100);
+    });
+
+    // Prevent clicks inside menu from closing it
+    navLinks.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Handle escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isMenuOpen) {
+            toggleMenu(false);
         }
     });
 }

@@ -58,76 +58,133 @@ const faqs = {
     ]
 };
 
-class BhukkAssistant {
-    constructor() {
-        this.currentCategory = null;
-        this.chatHistory = [];
+// Initialize chat functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const assistant = document.querySelector('.bhukk-assistant');
+    const toggleBtn = assistant.querySelector('.assistant-toggle');
+    const chatContainer = assistant.querySelector('.chat-container');
+    const closeBtn = assistant.querySelector('.chat-close');
+    const chatInput = assistant.querySelector('.chat-input');
+    const sendBtn = assistant.querySelector('.chat-send');
+    const messagesContainer = assistant.querySelector('.chat-messages');
+    const categoriesList = assistant.querySelector('.faq-categories');
+
+    // Initialize categories
+    function initializeCategories() {
+        Object.keys(faqs).forEach(category => {
+            const li = document.createElement('li');
+            li.className = 'faq-category';
+            li.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+            li.dataset.category = category;
+            categoriesList.appendChild(li);
+        });
     }
 
-    // Get FAQ categories
-    getCategories() {
-        return Object.keys(faqs);
-    }
-
-    // Get FAQs for a specific category
-    getFAQsByCategory(category) {
-        return faqs[category] || [];
+    // Add message to chat
+    function addMessage(text, isUser = false) {
+        const message = document.createElement('div');
+        message.className = `message ${isUser ? 'user' : 'assistant'}`;
+        message.textContent = text;
+        messagesContainer.appendChild(message);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
     // Process user message
-    processMessage(message) {
-        message = message.toLowerCase();
+    function processMessage(text) {
+        const lowerText = text.toLowerCase();
         
-        // Check for category matches
-        for (const category of this.getCategories()) {
-            if (message.includes(category)) {
-                this.currentCategory = category;
-                return {
-                    type: 'category',
-                    message: `Here are some common questions about ${category}:`,
-                    faqs: this.getFAQsByCategory(category)
-                };
+        // Check categories
+        for (const category of Object.keys(faqs)) {
+            if (lowerText.includes(category.toLowerCase())) {
+                const categoryFaqs = faqs[category];
+                addMessage(`Here are some common questions about ${category}:`, false);
+                categoryFaqs.forEach(faq => {
+                    addMessage(`• ${faq.question}`, false);
+                });
+                return;
             }
         }
 
-        // Check for direct question matches
-        for (const category of this.getCategories()) {
-            const categoryFaqs = this.getFAQsByCategory(category);
-            for (const faq of categoryFaqs) {
-                if (message.includes(faq.question.toLowerCase())) {
-                    return {
-                        type: 'answer',
-                        message: faq.answer
-                    };
-                }
+        // Check for specific questions
+        for (const category of Object.keys(faqs)) {
+            const foundFaq = faqs[category].find(faq => 
+                lowerText.includes(faq.question.toLowerCase()) ||
+                lowerText.split(' ').filter(word => 
+                    faq.question.toLowerCase().includes(word)
+                ).length >= 3
+            );
+            
+            if (foundFaq) {
+                addMessage(foundFaq.answer, false);
+                return;
             }
         }
 
         // Default response
-        return {
-            type: 'help',
-            message: "I can help you with questions about ordering, liquor delivery, payments, and your account. What would you like to know about?",
-            categories: this.getCategories()
-        };
+        addMessage("I can help you with questions about ordering, liquor delivery, payments, and your account. Please choose a topic or ask a specific question!", false);
     }
 
-    // Add message to chat history
-    addToHistory(message, isUser = false) {
-        this.chatHistory.push({
-            message,
-            isUser,
-            timestamp: new Date()
-        });
-    }
+    // Toggle chat
+    toggleBtn.addEventListener('click', () => {
+        chatContainer.classList.toggle('active');
+        if (chatContainer.classList.contains('active')) {
+            chatInput.focus();
+            if (!messagesContainer.hasChildNodes()) {
+                addMessage("Hi! I'm your BHUKK Assistant. How can I help you today?", false);
+            }
+        }
+    });
 
-    // Get chat history
-    getHistory() {
-        return this.chatHistory;
-    }
-}
+    // Close chat
+    closeBtn.addEventListener('click', () => {
+        chatContainer.classList.remove('active');
+    });
 
-// Initialize BHUKK Assistant
-const bhukkAssistant = new BhukkAssistant();
+    // Send message on button click
+    sendBtn.addEventListener('click', () => {
+        const message = chatInput.value.trim();
+        if (message) {
+            addMessage(message, true);
+            processMessage(message);
+            chatInput.value = '';
+            chatInput.focus();
+        }
+    });
 
-// Export for use in main.js
-window.bhukkAssistant = bhukkAssistant;
+    // Send message on Enter key
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const message = chatInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                processMessage(message);
+                chatInput.value = '';
+            }
+        }
+    });
+
+    // Handle category clicks
+    categoriesList.addEventListener('click', (e) => {
+        const category = e.target.closest('.faq-category');
+        if (category) {
+            document.querySelectorAll('.faq-category').forEach(cat => 
+                cat.classList.remove('active')
+            );
+            category.classList.add('active');
+            const categoryName = category.dataset.category;
+            processMessage(categoryName);
+        }
+    });
+
+    // Click outside to close
+    document.addEventListener('click', (e) => {
+        if (chatContainer.classList.contains('active') &&
+            !assistant.contains(e.target)) {
+            chatContainer.classList.remove('active');
+        }
+    });
+
+    // Initialize categories
+    initializeCategories();
+});
+
