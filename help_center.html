@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center | Bhukk Website</title>
+    <!-- Common Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="css/help_center.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <div id="navbar"></div>
+    </header>    <!-- Main Content -->
+    <main class="help-center-container">
+        <!-- Search Section -->
+        <section class="help-search">
+            <h1>How can we help you?</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for help topics...">
+                <i class="fas fa-search"></i>
+            </div>
+        </section>
+
+        <!-- FAQ Categories -->
+        <section class="faq-categories">
+            <div class="category-card">
+                <i class="fas fa-user-circle"></i>
+                <h3>Account & Profile</h3>
+                <p>Manage your account settings and preferences</p>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Orders & Delivery</h3>
+                <p>Track orders and delivery information</p>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-credit-card"></i>
+                <h3>Payments & Refunds</h3>
+                <p>Payment methods and refund process</p>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-gift"></i>
+                <h3>Rewards & Offers</h3>
+                <p>Learn about deals and promotions</p>
+            </div>
+        </section>
+
+        <!-- FAQ Accordion -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I create an account?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Click on the "Sign Up" button in the top right corner of the homepage. Fill in your details including name, email, and password. Verify your email address through the confirmation link we'll send you.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How can I track my order?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Log into your account and go to "My Orders". Click on the specific order to view its real-time status and delivery updates. You'll also receive notifications via email and SMS.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What payment methods do you accept?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    We accept various payment methods including credit/debit cards, UPI, net banking, and cash on delivery. All online payments are processed through secure payment gateways.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I cancel my order?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    You can cancel your order within 5 minutes of placing it. Go to "My Orders", select the order you want to cancel, and click the "Cancel Order" button. The refund will be processed within 5-7 business days.
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Support -->
+        <section class="contact-support">
+            <h2>Still Need Help?</h2>
+            <p>Contact our support team through any of these channels</p>
+            <div class="support-options">
+                <div class="support-option">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Support</h3>
+                    <p>Get help via email</p>
+                    <a href="mailto:support@bhukk.com" class="btn">Email Us</a>
+                </div>
+                <div class="support-option">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Phone Support</h3>
+                    <p>Talk to our team</p>
+                    <a href="tel:+1234567890" class="btn">Call Now</a>
+                </div>
+                <div class="support-option">
+                    <i class="fas fa-comments"></i>
+                    <h3>Live Chat</h3>
+                    <p>Chat with us</p>
+                    <button class="btn" onclick="startChat()">Start Chat</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Load navbar
+                const navResponse = await fetch('elements/navbar.html');
+                const navData = await navResponse.text();
+                document.getElementById('navbar').innerHTML = navData;
+
+                // Load footer
+                const footerResponse = await fetch('elements/footer.html');
+                const footerData = await footerResponse.text();
+                document.getElementById('footer').innerHTML = footerData;
+
+                // Initialize FAQ accordion
+                const faqQuestions = document.querySelectorAll('.faq-question');
+                faqQuestions.forEach(question => {
+                    question.addEventListener('click', () => {
+                        const answer = question.nextElementSibling;
+                        const isActive = question.classList.contains('active');
+
+                        // Close all other answers
+                        document.querySelectorAll('.faq-question').forEach(q => {
+                            q.classList.remove('active');
+                            q.nextElementSibling.classList.remove('active');
+                        });
+
+                        // Toggle current answer
+                        if (!isActive) {
+                            question.classList.add('active');
+                            answer.classList.add('active');
+                        }
+                    });
+                });
+
+                // Initialize search functionality
+                const searchInput = document.querySelector('.search-bar input');
+                searchInput.addEventListener('input', (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const faqItems = document.querySelectorAll('.faq-item');
+
+                    faqItems.forEach(item => {
+                        const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                        
+                        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error loading components:', error);
+            }
+        });
+
+        // Live chat function (placeholder)
+        function startChat() {
+            alert('Live chat feature coming soon!');
+        }
+    </script>
+</body>
+</html>

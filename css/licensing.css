@@ -1,0 +1,203 @@
+.licensing-container {
+    max-width: 1200px;
+    margin: 120px auto 60px;
+    padding: 2rem;
+}
+
+.license-hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(229, 141, 46, 0.1);
+    margin-bottom: 4rem;
+}
+
+.license-hero h1 {
+    color: var(--primary-color);
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.license-hero p {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+.license-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.license-card {
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(229, 141, 46, 0.1);
+    transition: all 0.3s ease;
+}
+
+.license-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.license-card h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.license-card .price {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+.license-card .price span {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.license-card ul {
+    list-style: none;
+    margin: 0 0 2rem 0;
+    padding: 0;
+}
+
+.license-card li {
+    color: var(--text-color);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.license-card li i {
+    color: var(--primary-color);
+}
+
+.license-card .btn {
+    width: 100%;
+    text-align: center;
+}
+
+.requirements {
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(229, 141, 46, 0.1);
+    margin-bottom: 4rem;
+}
+
+.requirements h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.requirement-item {
+    background: rgba(229, 141, 46, 0.05);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--primary-color);
+}
+
+.requirement-item h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.requirement-item p {
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.faq-section {
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(229, 141, 46, 0.1);
+}
+
+.faq-section h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.faq-item {
+    border-bottom: 1px solid rgba(229, 141, 46, 0.1);
+    padding: 1.5rem 0;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.faq-question i {
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    margin-top: 1rem;
+    color: var(--text-color);
+    opacity: 0.9;
+    display: none;
+}
+
+.faq-answer.active {
+    display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .licensing-container {
+        margin: 100px auto 40px;
+        padding: 1rem;
+    }
+
+    .license-hero {
+        padding: 3rem 1.5rem;
+    }
+
+    .license-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .license-hero p {
+        font-size: 1rem;
+    }
+
+    .license-card,
+    .requirements,
+    .faq-section {
+        padding: 1.5rem;
+    }
+}

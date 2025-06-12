@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Bhukk Website</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Navbar Import -->
+    <div id="navbar-container"></div>
+
+    <main>
+        <section class="about-us">
+            <h1>About Us</h1>
+            <p>
+                Welcome to Bhukk! We are passionate about bringing delicious food to your doorstep. Our mission is to connect food lovers with the best local restaurants and provide a seamless ordering experience.
+            </p>
+            <h2>Our Story</h2>
+            <p>
+                Founded in 2024, Bhukk started as a small team of food enthusiasts who wanted to make food delivery easier and more enjoyable. Today, we serve thousands of happy customers and partner with top restaurants in the city.
+            </p>
+            <h2>Our Values</h2>
+            <ul>
+                <li>Quality food from trusted partners</li>
+                <li>Fast and reliable delivery</li>
+                <li>Excellent customer service</li>
+                <li>Supporting local businesses</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer Import -->
+    <div id="footer-container"></div>
+
+    <script>
+        // Import navbar
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            });
+
+        // Import footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+.refund-policy-container {
+    max-width: 800px;
+    margin: 120px auto 60px;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(229, 141, 46, 0.1);
+}
+
+.refund-policy-container h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.refund-policy-container h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+}
+
+.refund-policy-container p {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.refund-policy-container .refund-steps {
+    background: rgba(229, 141, 46, 0.05);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+}
+
+.refund-policy-container .refund-steps ol {
+    margin: 1rem 0 1rem 2rem;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.refund-policy-container .refund-steps li {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.refund-policy-container .eligibility-criteria {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+    border-left: 3px solid var(--primary-color);
+}
+
+.refund-policy-container .contact-support {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: rgba(229, 141, 46, 0.05);
+    border-radius: var(--border-radius);
+}
+
+.refund-policy-container .contact-support h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.refund-policy-container .contact-support .btn {
+    margin-top: 1rem;
+}
+
+.refund-policy-container .note {
+    font-style: italic;
+    color: var(--secondary-color);
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .refund-policy-container {
+        margin: 100px auto 40px;
+        padding: 1.5rem;
+    }
+
+    .refund-policy-container h1 {
+        font-size: 2rem;
+    }
+
+    .refund-policy-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .refund-policy-container .contact-support {
+        padding: 1.5rem;
+    }
+}

@@ -91,7 +91,7 @@
     <!-- Footer -->
     <div id="footer"></div>    <!-- Scripts -->
     <script src="../js/components.js"></script>
-    <script src="../js/partner_form.js"></script>
+    <script src="../js/forms.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
             try {
@@ -104,6 +104,12 @@
                 const footerResponse = await fetch('../elements/footer.html');
                 const footerData = await footerResponse.text();
                 document.getElementById('footer').innerHTML = footerData;
+
+                // Initialize form handlers
+                const partnerForm = document.querySelector('.contact-form');
+                if (partnerForm) {
+                    console.log('Partner form found and initialized');
+                }
             } catch (error) {
                 console.error('Error loading components:', error);
             }

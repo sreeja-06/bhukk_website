@@ -1,0 +1,94 @@
+.privacy-policy-container {
+    max-width: 800px;
+    margin: 120px auto 60px;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(229, 141, 46, 0.1);
+}
+
+.privacy-policy-container h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.privacy-policy-container h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+}
+
+.privacy-policy-container h3 {
+    color: var(--text-color);
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+}
+
+.privacy-policy-container p {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.privacy-policy-container ul,
+.privacy-policy-container ol {
+    margin: 1rem 0 1rem 2rem;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.privacy-policy-container li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.privacy-policy-container .data-collection,
+.privacy-policy-container .data-usage,
+.privacy-policy-container .data-protection {
+    background: rgba(229, 141, 46, 0.05);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+    border-left: 3px solid var(--primary-color);
+}
+
+.privacy-policy-container .contact-info {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.privacy-policy-container .last-updated {
+    text-align: right;
+    font-style: italic;
+    color: var(--secondary-color);
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .privacy-policy-container {
+        margin: 100px auto 40px;
+        padding: 1.5rem;
+    }
+
+    .privacy-policy-container h1 {
+        font-size: 2rem;
+    }
+
+    .privacy-policy-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .privacy-policy-container h3 {
+        font-size: 1.2rem;
+    }
+}

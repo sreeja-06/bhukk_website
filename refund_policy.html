@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy | Bhukk Website</title>
+    <!-- Common Styles -->    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/refund_policy.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <div id="navbar"></div>
+    </header>    <!-- Main Content -->
+    <main class="refund-policy-container">
+        <h1>Refund Policy</h1>
+        
+        <section>
+            <h2>Our Commitment</h2>
+            <p>At Bhukk, we are committed to ensuring your satisfaction with our service. If you're not happy with your order, we're here to help make it right.</p>
+        </section>
+
+        <section class="eligibility-criteria">
+            <h2>Refund Eligibility</h2>
+            <p>You may be eligible for a refund in the following situations:</p>
+            <ul>
+                <li>Order not delivered within the estimated delivery time + 30 minutes</li>
+                <li>Food quality issues (must be reported within 30 minutes of delivery)</li>
+                <li>Incorrect or missing items in your order</li>
+                <li>Order cancelled before restaurant confirmation</li>
+            </ul>
+        </section>
+
+        <section class="refund-steps">
+            <h2>How to Request a Refund</h2>
+            <ol>
+                <li>Log into your Bhukk account</li>
+                <li>Go to 'Order History' and select the relevant order</li>
+                <li>Click on 'Report an Issue' button</li>
+                <li>Select the reason for your refund request</li>
+                <li>Provide necessary details and submit any supporting photos</li>
+                <li>Submit your request</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Refund Processing Time</h2>
+            <p>Once your refund is approved:</p>
+            <ul>
+                <li>Bhukk Wallet credits: Instant</li>
+                <li>Credit/Debit cards: 5-7 business days</li>
+                <li>UPI/Net Banking: 2-3 business days</li>
+            </ul>
+        </section>
+
+        <section class="contact-support">
+            <h3>Need Help?</h3>
+            <p>Our customer support team is available 24/7 to assist you with refund-related queries.</p>
+            <a href="help_center.html" class="btn">Contact Support</a>
+        </section>
+
+        <p class="note">Note: This refund policy is subject to change. Any changes will be communicated through our website and mobile app.</p>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Load navbar
+                const navResponse = await fetch('elements/navbar.html');
+                const navData = await navResponse.text();
+                document.getElementById('navbar').innerHTML = navData;
+
+                // Load footer
+                const footerResponse = await fetch('elements/footer.html');
+                const footerData = await footerResponse.text();
+                document.getElementById('footer').innerHTML = footerData;
+
+                // Initialize support button
+                const supportBtn = document.querySelector('.contact-support .btn');
+                if (supportBtn) {
+                    supportBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const contactSection = document.querySelector('#help-center');
+                        if (contactSection) {
+                            contactSection.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            window.location.href = 'help_center.html';
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading components:', error);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | Bhukk Website</title>
+    <!-- Common Styles -->    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/terms_of_service.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <div id="navbar"></div>
+    </header>    <!-- Main Content -->
+    <main class="terms-container">
+        <h1>Terms of Service</h1>
+        
+        <section>
+            <h2>1. Acceptance of Terms</h2>
+            <p>By accessing and using Bhukk's services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
+        </section>
+
+        <section>
+            <h2>2. Use of Services</h2>
+            <p>Our services are available only to users who can form legally binding contracts under applicable law. By using our services, you represent that you are at least 18 years old.</p>
+            
+            <h3>2.1 User Accounts</h3>
+            <ul>
+                <li>You are responsible for maintaining the confidentiality of your account credentials</li>
+                <li>You must provide accurate and complete information when creating an account</li>
+                <li>You are responsible for all activities that occur under your account</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Ordering and Payment</h2>
+            <p>When placing an order through Bhukk:</p>
+            <ul>
+                <li>You agree to provide current, complete, and accurate purchase information</li>
+                <li>You agree to promptly update your account and payment information</li>
+                <li>You agree to pay all charges at the prices in effect when incurring the charges</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Delivery Policy</h2>
+            <p>Bhukk partners with local restaurants and delivery providers to deliver food orders. Delivery times are estimates and may vary based on:</p>
+            <ul>
+                <li>Restaurant preparation time</li>
+                <li>Order volume</li>
+                <li>Weather conditions</li>
+                <li>Traffic conditions</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Cancellation Policy</h2>
+            <p>Orders can be cancelled within 5 minutes of placing them. After this window, cancellation may not be possible as the restaurant might have started preparing your food.</p>
+        </section>
+
+        <section>
+            <h2>6. User Conduct</h2>
+            <p>Users agree not to:</p>
+            <ul>
+                <li>Use the service for any unlawful purpose</li>
+                <li>Attempt to gain unauthorized access to our systems</li>
+                <li>Interfere with other users' enjoyment of the service</li>
+                <li>Submit false or misleading information</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Changes to Terms</h2>
+            <p>Bhukk reserves the right to modify these terms at any time. We will notify users of any material changes via email or through our platform.</p>
+        </section>
+
+        <section>
+            <h2>8. Contact Information</h2>
+            <p>For questions about these Terms of Service, please contact us at:</p>
+            <ul>
+                <li>Email: legal@bhukk.com</li>
+                <li>Phone: +91 123-456-7890</li>
+                <li>Address: 123 Food Street, Kolkata, West Bengal, India</li>
+            </ul>
+        </section>
+
+        <p class="last-updated">Last Updated: June 11, 2025</p>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Load navbar
+                const navResponse = await fetch('elements/navbar.html');
+                const navData = await navResponse.text();
+                document.getElementById('navbar').innerHTML = navData;
+
+                // Load footer
+                const footerResponse = await fetch('elements/footer.html');
+                const footerData = await footerResponse.text();
+                document.getElementById('footer').innerHTML = footerData;
+
+                // Add smooth scrolling to section links
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            } catch (error) {
+                console.error('Error loading components:', error);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licensing | Bhukk Website</title>
+    <!-- Common Styles -->    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/licensing.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <div id="navbar"></div>
+    </header>    <!-- Main Content -->
+    <main class="licensing-container">
+        <section class="license-hero">
+            <h1>Licensing Information</h1>
+            <p>Everything you need to know about Bhukk's licensing terms and options for restaurants and business partners.</p>
+        </section>
+
+        <section class="license-types">
+            <div class="license-card">
+                <h2>Basic License</h2>
+                <div class="price">₹999<span>/month</span></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> Online ordering system</li>
+                    <li><i class="fas fa-check"></i> Basic analytics</li>
+                    <li><i class="fas fa-check"></i> Standard support</li>
+                    <li><i class="fas fa-check"></i> Menu management</li>
+                </ul>
+                <a href="partner_with_us.html" class="btn">Get Started</a>
+            </div>
+
+            <div class="license-card">
+                <h2>Pro License</h2>
+                <div class="price">₹1999<span>/month</span></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> All Basic features</li>
+                    <li><i class="fas fa-check"></i> Advanced analytics</li>
+                    <li><i class="fas fa-check"></i> Priority support</li>
+                    <li><i class="fas fa-check"></i> Marketing tools</li>
+                </ul>
+                <a href="partner_with_us.html" class="btn">Get Started</a>
+            </div>
+
+            <div class="license-card">
+                <h2>Enterprise License</h2>
+                <div class="price">Custom<span>/month</span></div>
+                <ul>
+                    <li><i class="fas fa-check"></i> All Pro features</li>
+                    <li><i class="fas fa-check"></i> Custom integration</li>
+                    <li><i class="fas fa-check"></i> 24/7 support</li>
+                    <li><i class="fas fa-check"></i> Dedicated account manager</li>
+                </ul>
+                <a href="contact_career.html" class="btn">Contact Sales</a>
+            </div>
+        </section>
+
+        <section class="requirements">
+            <h2>License Requirements</h2>
+            <div class="requirements-grid">
+                <div class="requirement-item">
+                    <h3>Legal Requirements</h3>
+                    <p>Valid business registration and food safety certificates required.</p>
+                </div>
+                <div class="requirement-item">
+                    <h3>Technical Requirements</h3>
+                    <p>Internet-connected device with web browser or our mobile app.</p>
+                </div>
+                <div class="requirement-item">
+                    <h3>Quality Standards</h3>
+                    <p>Must maintain minimum customer rating and service standards.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Licensing FAQs</h2>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I upgrade my license?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    You can upgrade your license at any time through your restaurant dashboard. The new rate will be prorated for the remaining billing period.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What payment methods do you accept?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    We accept all major credit cards, UPI, and bank transfers. Enterprise clients can arrange custom payment terms.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I cancel my license?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes, you can cancel your license at any time. Refunds are provided on a pro-rata basis for unused periods.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Load navbar
+                const navResponse = await fetch('elements/navbar.html');
+                const navData = await navResponse.text();
+                document.getElementById('navbar').innerHTML = navData;
+
+                // Load footer
+                const footerResponse = await fetch('elements/footer.html');
+                const footerData = await footerResponse.text();
+                document.getElementById('footer').innerHTML = footerData;
+
+                // Initialize FAQ accordion
+                const faqQuestions = document.querySelectorAll('.faq-question');
+                faqQuestions.forEach(question => {
+                    question.addEventListener('click', () => {
+                        const answer = question.nextElementSibling;
+                        const isActive = question.classList.contains('active');
+
+                        // Close all other answers
+                        document.querySelectorAll('.faq-question').forEach(q => {
+                            q.classList.remove('active');
+                            q.nextElementSibling.classList.remove('active');
+                        });
+
+                        // Toggle current answer
+                        if (!isActive) {
+                            question.classList.add('active');
+                            answer.classList.add('active');
+                        }
+                    });
+                });
+
+                // Add animation to license cards on hover
+                const licenseCards = document.querySelectorAll('.license-card');
+                licenseCards.forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        card.style.transform = 'translateY(-10px)';
+                        card.style.borderColor = 'var(--primary-color)';
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = 'translateY(0)';
+                        card.style.borderColor = 'rgba(229, 141, 46, 0.1)';
+                    });
+                });
+            } catch (error) {
+                console.error('Error loading components:', error);
+            }
+        });
+    </script>
+</body>
+</html>

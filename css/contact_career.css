@@ -1,0 +1,162 @@
+.contact-career-container {
+    max-width: 1200px;
+    margin: 120px auto 60px;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Common form styles */
+.contact-section,
+.career-section {
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(229, 141, 46, 0.1);
+}
+
+.contact-section h1,
+.career-section h1 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.contact-section p,
+.career-section p {
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* Form styles */
+.contact-form,
+.career-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-form label,
+.career-form label {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.contact-form input,
+.career-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(229, 141, 46, 0.2);
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.career-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(229, 141, 46, 0.1);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* File upload styling */
+.career-form input[type="file"] {
+    padding: 0.5rem;
+    background: none;
+    border: none;
+}
+
+.career-form input[type="file"]::file-selector-button {
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    border: none;
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    margin-right: 1rem;
+    transition: all 0.3s ease;
+}
+
+.career-form input[type="file"]::file-selector-button:hover {
+    background: var(--accent-color);
+}
+
+/* Submit button styling */
+.contact-form button,
+.career-form button {
+    background: var(--gradient-primary);
+    color: var(--text-color);
+    padding: 1rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.contact-form button:hover,
+.career-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(229, 141, 46, 0.3);
+}
+
+/* Additional contact info */
+.contact-info {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(229, 141, 46, 0.1);
+}
+
+.contact-info h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.contact-details {
+    display: grid;
+    gap: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-color);
+}
+
+.contact-item i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-career-container {
+        margin: 100px auto 40px;
+        padding: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    .contact-section,
+    .career-section {
+        padding: 1.5rem;
+    }
+
+    .contact-section h1,
+    .career-section h1 {
+        font-size: 1.8rem;
+    }
+}

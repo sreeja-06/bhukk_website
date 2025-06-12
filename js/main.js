@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeAIAssistant();
     initializeNavbar();
     initializeGlassEffects();
+    initializePartnerScroll(); // Add the new initialization
 });
 
 // Theme toggling functionality
@@ -273,4 +274,122 @@ function initializeMobileMenu() {
             toggleMenu(false);
         }
     });
+}
+
+// Coming soon alerts
+function initializeComingSoonAlerts() {
+    // Create alert elements if they don't exist
+    if (!document.querySelector('.custom-alert-overlay')) {
+        const overlay = document.createElement('div');
+        overlay.className = 'custom-alert-overlay';
+        document.body.appendChild(overlay);
+
+        const alertBox = document.createElement('div');
+        alertBox.className = 'custom-alert';
+        alertBox.innerHTML = `
+            <h3>Coming Soon!</h3>
+            <p></p>
+            <button>Got it!</button>
+        `;
+        document.body.appendChild(alertBox);
+
+        // Close alert on button click or overlay click
+        alertBox.querySelector('button').addEventListener('click', hideAlert);
+        overlay.addEventListener('click', hideAlert);
+    }
+
+    // Add click handlers to all elements with coming-soon class
+    document.querySelectorAll('.coming-soon').forEach(element => {
+        element.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            let title = 'Coming Soon!';
+            let message = '';
+            
+            // Customize message based on element type and content
+            if (element.classList.contains('store-button')) {
+                title = 'Mobile App Coming Soon!';
+                message = 'Our mobile app is in development! Get ready for a seamless food ordering experience with exclusive app-only features.';
+            } else if (element.textContent.trim().toLowerCase().includes('login')) {
+                title = 'Login Coming Soon!';
+                message = 'Our secure login system is under development. Stay tuned for personalized features and saved preferences!';
+            } else if (element.textContent.trim().toLowerCase().includes('order')) {
+                title = 'Online Ordering Coming Soon!';
+                message = 'We\'re cooking up something special! Our online ordering system will be ready to serve you soon.';
+            } else if (element.textContent.trim().toLowerCase().includes('liquor')) {
+                title = '24x7 Liquor Coming Soon!';
+                message = 'Our 24x7 liquor delivery service is coming soon! Get ready for convenient and responsible beverage delivery.';
+            }
+            
+            showAlert(title, message);
+        });
+    });
+}
+
+function showAlert(title, message) {
+    const alertBox = document.querySelector('.custom-alert');
+    const overlay = document.querySelector('.custom-alert-overlay');
+    
+    alertBox.querySelector('h3').textContent = title;
+    alertBox.querySelector('p').textContent = message;
+    
+    overlay.classList.add('show');
+    alertBox.classList.add('show');
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function hideAlert() {
+    const alertBox = document.querySelector('.custom-alert');
+    const overlay = document.querySelector('.custom-alert-overlay');
+    
+    overlay.classList.remove('show');
+    alertBox.classList.remove('show');
+    
+    // Restore body scroll
+    document.body.style.overflow = '';
+}
+
+// Initialize Partner Section Scroll
+function initializePartnerScroll() {
+    const partnerGrid = document.querySelector('.partner-grid');
+    const scrollLeftBtn = document.querySelector('.scroll-left');
+    const scrollRightBtn = document.querySelector('.scroll-right');
+    const scrollAmount = 300; // Amount to scroll by
+
+    if (partnerGrid && scrollLeftBtn && scrollRightBtn) {
+        // Left scroll button
+        scrollLeftBtn.addEventListener('click', () => {
+            partnerGrid.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        // Right scroll button
+        scrollRightBtn.addEventListener('click', () => {
+            partnerGrid.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        // Show/hide buttons based on scroll position
+        partnerGrid.addEventListener('scroll', () => {
+            const isAtStart = partnerGrid.scrollLeft === 0;
+            const isAtEnd = partnerGrid.scrollLeft + partnerGrid.offsetWidth >= partnerGrid.scrollWidth;
+
+            scrollLeftBtn.style.opacity = isAtStart ? '0.5' : '1';
+            scrollRightBtn.style.opacity = isAtEnd ? '0.5' : '1';
+            
+            scrollLeftBtn.style.pointerEvents = isAtStart ? 'none' : 'all';
+            scrollRightBtn.style.pointerEvents = isAtEnd ? 'none' : 'all';
+        });
+
+        // Initial button state
+        scrollLeftBtn.style.opacity = '0.5';
+        scrollLeftBtn.style.pointerEvents = 'none';
+    }
 }
