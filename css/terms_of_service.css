@@ -1,81 +1,164 @@
+/* Terms of Service specific styles */
+:root {
+    --tos-primary-color: var(--primary-color);
+    --tos-secondary-color: var(--secondary-color);
+    --tos-text-color: var(--text-color);
+    --tos-bg: rgba(0, 0, 0, 0.5);
+    --tos-border-radius: var(--border-radius-lg);
+    --tos-spacing: 2rem;
+}
+
 .terms-container {
     max-width: 800px;
     margin: 120px auto 60px;
-    padding: 2rem;
-    background: rgba(0, 0, 0, 0.5);
+    padding: var(--tos-spacing);
+    background: var(--tos-bg);    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--tos-border-radius);
     border: 1px solid rgba(229, 141, 46, 0.1);
+    color: var(--tos-text-color);
 }
 
-.terms-container h1 {
-    color: var(--primary-color);
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+.terms-header {
     text-align: center;
+    margin-bottom: calc(var(--tos-spacing) * 1.5);
 }
 
-.terms-container h2 {
-    color: var(--primary-color);
-    font-size: 1.8rem;
-    margin: 2rem 0 1rem;
-}
-
-.terms-container h3 {
-    color: var(--text-color);
-    font-size: 1.4rem;
-    margin: 1.5rem 0 1rem;
-}
-
-.terms-container p {
-    color: var(--text-color);
+.terms-header h1 {
+    color: var(--tos-primary-color);
+    font-size: 2.5rem;
     margin-bottom: 1rem;
-    line-height: 1.6;
-    opacity: 0.9;
+    position: relative;
 }
 
-.terms-container ul, 
-.terms-container ol {
-    margin: 1rem 0 1rem 2rem;
-    color: var(--text-color);
-    opacity: 0.9;
+.terms-header h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--tos-primary-color);
+    margin: 1rem auto;
+    border-radius: 2px;
 }
 
-.terms-container li {
-    margin-bottom: 0.5rem;
-    line-height: 1.6;
-}
-
-.terms-container strong {
-    color: var(--primary-color);
-    font-weight: 600;
-}
-
-.terms-container .last-updated {
-    text-align: right;
+.last-updated {
+    color: var(--tos-secondary-color);
     font-style: italic;
-    color: var(--secondary-color);
-    margin-top: 2rem;
     font-size: 0.9rem;
 }
 
-/* Responsive adjustments */
+.terms-section {
+    margin-bottom: var(--tos-spacing);
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--tos-border-radius);
+    border: 1px solid rgba(229, 141, 46, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.terms-section:hover {
+    transform: translateY(-2px);
+}
+
+.terms-section h2 {
+    color: var(--tos-primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--tos-primary-color);
+}
+
+.terms-section p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.terms-section ul {
+    list-style-type: none;
+    padding-left: 1.5rem;
+}
+
+.terms-section ul li {
+    margin: 0.8rem 0;
+    position: relative;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.terms-section ul li::before {
+    content: '•';
+    color: var(--tos-primary-color);
+    position: absolute;
+    left: -1.2rem;
+    font-size: 1.2em;
+}
+
+.terms-contact {
+    text-align: center;
+    margin-top: calc(var(--tos-spacing) * 1.5);
+    padding: var(--tos-spacing);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--tos-border-radius);
+    border: 1px solid rgba(229, 141, 46, 0.05);
+}
+
+.terms-contact h3 {
+    color: var(--tos-primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .terms-container {
         margin: 100px auto 40px;
         padding: 1.5rem;
     }
 
-    .terms-container h1 {
+    .terms-header h1 {
         font-size: 2rem;
     }
 
-    .terms-container h2 {
-        font-size: 1.5rem;
+    .terms-section {
+        padding: 1rem;
     }
 
-    .terms-container h3 {
-        font-size: 1.2rem;
+    .terms-section h2 {
+        font-size: 1.5rem;
     }
+}
+
+/* Print styles */
+@media print {
+    .terms-container {
+        background: white;
+        color: black;
+        margin: 0;
+        padding: 2rem;
+        max-width: 100%;        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        border: none;
+    }
+
+    .terms-section {
+        break-inside: avoid;
+        background: none;
+        border: none;
+    }
+
+    #navbar, #footer {
+        display: none;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .terms-section {
+        transition: none;
+    }
+}
+
+[role="contentinfo"] {
+    margin-top: auto;
 }

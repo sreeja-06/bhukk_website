@@ -3,102 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refund Policy | Bhukk Website</title>
-    <!-- Common Styles -->    <link rel="stylesheet" href="css/style.css">
+    <title>Refund Policy | BHUKK</title>    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/refund_policy.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     <!-- Navbar -->
     <header>
         <div id="navbar"></div>
     </header>    <!-- Main Content -->
-    <main class="refund-policy-container">
-        <h1>Refund Policy</h1>
-        
-        <section>
-            <h2>Our Commitment</h2>
-            <p>At Bhukk, we are committed to ensuring your satisfaction with our service. If you're not happy with your order, we're here to help make it right.</p>
+    <main class="refund-container">
+        <div class="refund-hero">
+            <h1>Refund Policy</h1>
+            <p class="last-updated">Last updated: June 12, 2025</p>
+            <p class="hero-description">We strive to make every BHUKK experience perfect. When things don't go as planned, here's how we make it right.</p>
+        </div>
+
+        <section class="refund-card eligibility">
+            <div class="card-icon">
+                <i class="fas fa-check-circle" aria-hidden="true"></i>
+            </div>
+            <h2>1. Refund Eligibility</h2>
+            <p>BHUKK is committed to customer satisfaction. You may be eligible for a refund in the following situations:</p>
+            <ul>
+                <li>Order not delivered</li>
+                <li>Significant delay in delivery</li>
+                <li>Food quality issues</li>
+                <li>Incorrect items received</li>
+                <li>Missing items from order</li>
+            </ul>
+        </section>        <section class="refund-card process">
+            <div class="card-icon">
+                <i class="fas fa-cogs" aria-hidden="true"></i>
+            </div>
+            <h2>2. Refund Process</h2>
+            <p>To request a refund:</p>
+            <div class="process-steps">
+                <ol>
+                <li>Report the issue within 24 hours of delivery</li>
+                <li>Use the "Help" section in our app</li>
+                <li>Provide order details and reason for refund</li>
+                <li>Submit photos if applicable (for quality issues)</li>            </ol>
+            </div>
         </section>
 
-        <section class="eligibility-criteria">
-            <h2>Refund Eligibility</h2>
-            <p>You may be eligible for a refund in the following situations:</p>
-            <ul>
-                <li>Order not delivered within the estimated delivery time + 30 minutes</li>
-                <li>Food quality issues (must be reported within 30 minutes of delivery)</li>
-                <li>Incorrect or missing items in your order</li>
-                <li>Order cancelled before restaurant confirmation</li>
+        <section class="refund-card methods">
+            <div class="card-icon">
+                <i class="fas fa-wallet" aria-hidden="true"></i>
+            </div>
+            <h2>3. Refund Methods</h2>
+            <div class="refund-table-container">
+                <table class="refund-table">
+                    <tr>
+                        <th>Payment Method</th>
+                        <th>Refund Time</th>
+                        <th>Refund Type</th>
+                    </tr>
+                    <tr>
+                        <td>Credit/Debit Card</td>
+                        <td>5-7 business days</td>
+                        <td>Original payment method</td>
+                    </tr>
+                    <tr>
+                        <td>UPI</td>
+                        <td>1-3 business days</td>
+                        <td>Original UPI ID</td>
+                    </tr>
+                    <tr>
+                        <td>Wallet</td>
+                        <td>24-48 hours</td>
+                        <td>Wallet balance</td>
+                    </tr>
+                    <tr>
+                        <td>Cash on Delivery</td>
+                        <td>1-3 business days</td>
+                        <td>Bank account/Wallet</td>
+                    </tr>
+                </table>
+            </div>
+        </section>        <section class="refund-card non-refundable">
+            <div class="card-icon">
+                <i class="fas fa-times-circle" aria-hidden="true"></i>
+            </div>
+            <h2>4. Non-Refundable Cases</h2>
+            <p>Refunds may not be available in these situations:</p>
+            <ul class="cross-list">                <li><i class="fas fa-times" aria-hidden="true"></i> Customer-induced delays in delivery</li>
+                <li><i class="fas fa-times" aria-hidden="true"></i> Incorrect delivery address provided</li>
+                <li><i class="fas fa-times" aria-hidden="true"></i> Personal taste preferences</li>
+                <li><i class="fas fa-times" aria-hidden="true"></i> Requests made after 24 hours</li>
+                <li><i class="fas fa-times" aria-hidden="true"></i> Partially consumed orders</li>
+            </ul>
+        </section>        <section class="refund-card cancellation">
+            <div class="card-icon">
+                <i class="fas fa-ban" aria-hidden="true"></i>
+            </div>
+            <h2>5. Cancellation Policy</h2>
+            <p>Order cancellation terms:</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon success">
+                        <i class="fas fa-check" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Before Restaurant Accepts</h4>
+                        <p>Free cancellation available</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon warning">
+                        <i class="fas fa-exclamation" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>During Preparation</h4>
+                        <p>Partial refund may be available</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon danger">
+                        <i class="fas fa-times" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>After Dispatch</h4>
+                        <p>No refund available</p>
+                    </div>
+                </div>
+            </div>
+            </ul>
+        </section>        <section class="refund-card special-cases">
+            <div class="card-icon">
+                <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+            </div>
+            <h2>6. Special Circumstances</h2>
+            <p>We may provide refunds in special cases:</p>
+            <ul class="special-circumstances">
+                <li>Technical issues during ordering</li>
+                <li>Restaurant closures</li>
+                <li>Extreme weather conditions</li>
+                <li>System-wide outages</li>
             </ul>
         </section>
 
-        <section class="refund-steps">
-            <h2>How to Request a Refund</h2>
-            <ol>
-                <li>Log into your Bhukk account</li>
-                <li>Go to 'Order History' and select the relevant order</li>
-                <li>Click on 'Report an Issue' button</li>
-                <li>Select the reason for your refund request</li>
-                <li>Provide necessary details and submit any supporting photos</li>
-                <li>Submit your request</li>
-            </ol>
-        </section>
+        <div class="help-section">
+            <h3>Need Help with a Refund?</h3>
+            <p>Contact our customer support team:</p>
+            <div class="contact-info">
+                <i class="fas fa-envelope"></i>
+                <span>Email: support@bhukk.com</span>
+            </div>
+            <div class="contact-info">
+                <i class="fas fa-phone"></i>
+                <span>Phone: +91 (800) 123-4567</span>
+            </div>
+            <div class="contact-info">
+                <i class="fas fa-headset"></i>
+                <span>In-app help center: Available 24/7</span>
+            </div>
+        </div>
 
-        <section>
-            <h2>Refund Processing Time</h2>
-            <p>Once your refund is approved:</p>
-            <ul>
-                <li>Bhukk Wallet credits: Instant</li>
-                <li>Credit/Debit cards: 5-7 business days</li>
-                <li>UPI/Net Banking: 2-3 business days</li>
-            </ul>
-        </section>
-
-        <section class="contact-support">
-            <h3>Need Help?</h3>
-            <p>Our customer support team is available 24/7 to assist you with refund-related queries.</p>
-            <a href="help_center.html" class="btn">Contact Support</a>
-        </section>
-
-        <p class="note">Note: This refund policy is subject to change. Any changes will be communicated through our website and mobile app.</p>
+        <p class="last-updated">Effective Date: June 12, 2025</p>
     </main>
 
     <!-- Footer -->
-    <div id="footer"></div>    <!-- Scripts -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
     <script src="js/components.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                // Load navbar
-                const navResponse = await fetch('elements/navbar.html');
-                const navData = await navResponse.text();
-                document.getElementById('navbar').innerHTML = navData;
-
-                // Load footer
-                const footerResponse = await fetch('elements/footer.html');
-                const footerData = await footerResponse.text();
-                document.getElementById('footer').innerHTML = footerData;
-
-                // Initialize support button
-                const supportBtn = document.querySelector('.contact-support .btn');
-                if (supportBtn) {
-                    supportBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const contactSection = document.querySelector('#help-center');
-                        if (contactSection) {
-                            contactSection.scrollIntoView({ behavior: 'smooth' });
-                        } else {
-                            window.location.href = 'help_center.html';
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error('Error loading components:', error);
-            }
-        });
-    </script>
 </body>
 </html>

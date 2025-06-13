@@ -25,26 +25,29 @@
         <section class="contact-section">
             <h1>Contact Us</h1>
             <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-            
-            <form class="contact-form">
+              <form class="contact-form">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
+                    <div class="form-error"></div>
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required>
+                    <div class="form-error"></div>
                 </div>
                 
                 <div class="form-group">
                     <label for="subject">Subject</label>
                     <input type="text" id="subject" name="subject" required>
+                    <div class="form-error"></div>
                 </div>
                 
                 <div class="form-group">
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="5" required></textarea>
+                    <div class="form-error"></div>
                 </div>
                 <button type="submit">Send Message</button>
             </form>
@@ -67,51 +70,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Career Section -->
-        <section class="career-section">
-            <h1>Join Our Team</h1>
-            <p>Looking for a rewarding career in food tech? We're always on the lookout for talented individuals to join our growing team.</p>
-            
-            <form class="career-form">
-                <div class="form-group">
-                    <label for="candidate-name">Full Name</label>
-                    <input type="text" id="candidate-name" name="candidate-name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="candidate-email">Email</label>
-                    <input type="email" id="candidate-email" name="candidate-email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="position">Position Interested In</label>
-                    <input type="text" id="position" name="position" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="experience">Years of Experience</label>
-                    <input type="number" id="experience" name="experience" min="0" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="resume">Upload Resume (PDF)</label>
-                    <input type="file" id="resume" name="resume" accept=".pdf" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="cover-letter">Cover Letter</label>
-                    <textarea id="cover-letter" name="cover-letter" rows="5" required></textarea>
-                </div>
-                
-                <button type="submit">Submit Application</button>
-            </form>
-        </section>
     </main>
 
     <!-- Footer -->
@@ -130,6 +88,12 @@
                 const footerResponse = await fetch('elements/footer.html');
                 const footerData = await footerResponse.text();
                 document.getElementById('footer').innerHTML = footerData;
+
+                //load contactForm handler
+                const contactForm = document.querySelector('.contact-form');
+                if (contactForm) {
+                    console.log('Contact form found and initialized');
+                }
             } catch (error) {
                 console.error('Error loading components:', error);
             }

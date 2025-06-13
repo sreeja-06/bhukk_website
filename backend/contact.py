@@ -8,20 +8,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_db_connection():
-    try:
-        conn = psycopg2.connect(
-            host='localhost',
-            database='bhukk',
-            user='postgres',
-            password='sreeja17.'
-        )
-        print("Database connection successful")
-        return conn
-    except Exception as e:
-        print(f"Database connection error: {str(e)}")
-        raise
+    return psycopg2.connect(
+        host='localhost',
+        database='bhukk',
+        user='postgres',
+        password='sreeja17.'
+    )
 
-def submit_contact():
+def handle_contact_form():
     conn = None
     cur = None
     try:
@@ -33,17 +27,12 @@ def submit_contact():
         email = data.get('email')
         subject = data.get('subject')
         message = data.get('message')
-          # Validate required fields
-        missing_fields = []
-        if not name: missing_fields.append('name')
-        if not email: missing_fields.append('email')
-        if not subject: missing_fields.append('subject')
-        if not message: missing_fields.append('message')
         
-        if missing_fields:
+        # Validate required fields
+        if not all([name, email, subject, message]):
             return jsonify({
                 'success': False,
-                'message': f'Missing required fields: {", ".join(missing_fields)}'
+                'message': 'Missing required fields'
             }), 400
             
         try:

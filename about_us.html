@@ -3,50 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Bhukk Website</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>About Us | BHUKK</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/about_us.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navbar Import -->
-    <div id="navbar-container"></div>
+    <!-- Navbar -->
+    <header>
+        <div id="navbar"></div>
+    </header>
 
-    <main>
-        <section class="about-us">
-            <h1>About Us</h1>
-            <p>
-                Welcome to Bhukk! We are passionate about bringing delicious food to your doorstep. Our mission is to connect food lovers with the best local restaurants and provide a seamless ordering experience.
-            </p>
-            <h2>Our Story</h2>
-            <p>
-                Founded in 2024, Bhukk started as a small team of food enthusiasts who wanted to make food delivery easier and more enjoyable. Today, we serve thousands of happy customers and partner with top restaurants in the city.
-            </p>
-            <h2>Our Values</h2>
-            <ul>
-                <li>Quality food from trusted partners</li>
-                <li>Fast and reliable delivery</li>
-                <li>Excellent customer service</li>
-                <li>Supporting local businesses</li>
-            </ul>
+    <!-- Main Content -->
+    <main class="about-container">
+        <!-- Hero Section -->
+        <section class="about-hero">
+            <h1>About BHUKK</h1>
+            <p>Revolutionizing food delivery through innovation, technology, and a passion for exceptional service. We're not just delivering food; we're crafting experiences.</p>
         </section>
+
+        <!-- Our Story Section -->
+        <section class="our-story">
+            <div class="story-content">
+                <h2>Our Story</h2>
+                <p>Founded in 2024, BHUKK emerged from a simple yet powerful idea: to transform how India experiences food delivery. What started as a small team of food enthusiasts has grown into a technology-driven platform serving thousands of customers daily.</p>
+                <p>Our journey is marked by continuous innovation, from introducing AI-powered recommendations to developing real-time tracking systems that set new industry standards.</p>
+            </div>
+            <div class="story-image">
+                <img src="assets/BHUKK.png.png" alt="BHUKK Journey - Our growth story illustrated">
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="our-values">
+            <h2>Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                    <h3>Customer First</h3>
+                    <p>Every decision we make starts with our customers' needs and satisfaction in mind.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-bolt" aria-hidden="true"></i>
+                    <h3>Innovation</h3>
+                    <p>We constantly push boundaries to bring the latest technology to food delivery.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                    <h3>Quality & Safety</h3>
+                    <p>We maintain the highest standards in food safety and delivery protocols.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-handshake" aria-hidden="true"></i>
+                    <h3>Partnership</h3>
+                    <p>We build strong relationships with restaurants, delivery partners, and communities.</p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Footer Import -->
-    <div id="footer-container"></div>
+    <!-- Footer -->
+    <div id="footer"></div>
 
-    <script>
-        // Import navbar
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('navbar-container').innerHTML = data;
-            });
-
-        // Import footer
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-            });
-    </script>
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
 </body>
 </html>

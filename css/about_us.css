@@ -1,3 +1,13 @@
+/* About Us Page Styles */
+:root {
+    --about-text-color: #FFFFFF;
+    --about-bg-color: #000000;
+    --about-accent-color: #E58D2E;
+    --about-border-color: rgba(229, 141, 46, 0.1);
+    --about-card-bg: rgba(0, 0, 0, 0.5);
+    --about-transition: all 0.3s ease;
+}
+
 .about-container {
     max-width: 1200px;
     margin: 120px auto 60px;
@@ -8,27 +18,29 @@
 .about-hero {
     text-align: center;
     padding: 4rem 2rem;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--about-card-bg);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    border-radius: var(--border-radius-lg);
-    border: 1px solid rgba(229, 141, 46, 0.1);
+    border-radius: 24px;
+    border: 1px solid var(--about-border-color);
     margin-bottom: 4rem;
 }
 
 .about-hero h1 {
-    color: var(--primary-color);
+    color: var(--about-accent-color);
     font-size: 3rem;
     margin-bottom: 1.5rem;
+    animation: fadeInDown 0.8s ease;
 }
 
 .about-hero p {
-    color: var(--text-color);
+    color: var(--about-text-color);
     font-size: 1.2rem;
     max-width: 800px;
     margin: 0 auto;
     opacity: 0.9;
     line-height: 1.8;
+    animation: fadeInUp 0.8s ease;
 }
 
 /* Our Story Section */
@@ -38,25 +50,26 @@
     gap: 4rem;
     margin-bottom: 4rem;
     align-items: center;
+    animation: fadeIn 1s ease;
 }
 
 .story-content {
     padding: 2rem;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--about-card-bg);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    border-radius: var(--border-radius-lg);
-    border: 1px solid rgba(229, 141, 46, 0.1);
+    border-radius: 24px;
+    border: 1px solid var(--about-border-color);
 }
 
 .story-content h2 {
-    color: var(--primary-color);
+    color: var(--about-accent-color);
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
 }
 
 .story-content p {
-    color: var(--text-color);
+    color: var(--about-text-color);
     margin-bottom: 1.5rem;
     line-height: 1.8;
     opacity: 0.9;
@@ -64,8 +77,14 @@
 
 .story-image {
     position: relative;
-    border-radius: var(--border-radius-lg);
+    border-radius: 24px;
     overflow: hidden;
+    box-shadow: 0 8px 32px rgba(229, 141, 46, 0.15);
+    transition: var(--about-transition);
+}
+
+.story-image:hover {
+    transform: translateY(-10px);
 }
 
 .story-image img {
@@ -88,10 +107,11 @@
 .our-values {
     margin-bottom: 4rem;
     text-align: center;
+    animation: fadeIn 1s ease;
 }
 
 .our-values h2 {
-    color: var(--primary-color);
+    color: var(--about-accent-color);
     font-size: 2.5rem;
     margin-bottom: 3rem;
 }
@@ -103,34 +123,34 @@
 }
 
 .value-card {
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--about-card-bg);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     padding: 2rem;
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(229, 141, 46, 0.1);
-    transition: all 0.3s ease;
+    border-radius: 16px;
+    border: 1px solid var(--about-border-color);
+    transition: var(--about-transition);
 }
 
 .value-card:hover {
     transform: translateY(-5px);
-    border-color: var(--primary-color);
+    border-color: var(--about-accent-color);
 }
 
 .value-card i {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--about-accent-color);
     margin-bottom: 1.5rem;
 }
 
 .value-card h3 {
-    color: var(--text-color);
+    color: var(--about-text-color);
     font-size: 1.5rem;
     margin-bottom: 1rem;
 }
 
 .value-card p {
-    color: var(--text-color);
+    color: var(--about-text-color);
     opacity: 0.9;
     line-height: 1.6;
 }
@@ -139,33 +159,34 @@
 .our-team {
     margin-bottom: 4rem;
     text-align: center;
+    animation: fadeIn 1s ease;
 }
 
 .our-team h2 {
-    color: var(--primary-color);
+    color: var(--about-accent-color);
     font-size: 2.5rem;
     margin-bottom: 3rem;
 }
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
 }
 
 .team-member {
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--about-card-bg);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(229, 141, 46, 0.1);
+    border-radius: 16px;
+    border: 1px solid var(--about-border-color);
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: var(--about-transition);
 }
 
 .team-member:hover {
     transform: translateY(-5px);
-    border-color: var(--primary-color);
+    border-color: var(--about-accent-color);
 }
 
 .member-image {
@@ -178,7 +199,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: var(--about-transition);
 }
 
 .team-member:hover .member-image img {
@@ -190,13 +211,13 @@
 }
 
 .member-info h3 {
-    color: var(--primary-color);
+    color: var(--about-accent-color);
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
 }
 
 .member-info p {
-    color: var(--text-color);
+    color: var(--about-text-color);
     opacity: 0.9;
     margin-bottom: 1rem;
 }
@@ -208,17 +229,63 @@
 }
 
 .social-links a {
-    color: var(--primary-color);
+    color: var(--about-accent-color);
     font-size: 1.2rem;
-    transition: all 0.3s ease;
+    transition: var(--about-transition);
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: rgba(229, 141, 46, 0.1);
 }
 
 .social-links a:hover {
     transform: translateY(-2px);
-    color: var(--accent-color);
+    background: rgba(229, 141, 46, 0.2);
 }
 
-/* Responsive adjustments */
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .our-story {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .story-image {
+        height: 400px;
+    }
+}
+
 @media (max-width: 768px) {
     .about-container {
         margin: 100px auto 40px;
@@ -237,20 +304,33 @@
         font-size: 1rem;
     }
 
-    .our-story {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .story-content,
-    .value-card,
-    .team-member {
-        padding: 1.5rem;
-    }
-
     .story-content h2,
     .our-values h2,
     .our-team h2 {
         font-size: 2rem;
+    }
+
+    .story-image {
+        height: 300px;
+    }
+
+    .value-card,
+    .team-member {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .values-grid,
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .story-image {
+        height: 250px;
     }
 }

@@ -74,7 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             successDiv.remove();
         }, 5000);
-    }    
+    }
+
     // Contact form handler
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
@@ -104,53 +105,52 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Validate subject
-            if (!subjectInput.value.trim()) {
-                showFormError(subjectInput, 'Please enter a subject');
+            if (subjectInput.value.trim().length < 2) {
+                showFormError(subjectInput, 'Subject is required');
                 hasError = true;
             }
 
             // Validate message
-            if (!messageInput.value.trim()) {
-                showFormError(messageInput, 'Please enter your message');
+            if (messageInput.value.trim().length < 10) {
+                showFormError(messageInput, 'Please enter a message (minimum 10 characters)');
                 hasError = true;
-            }            if (!hasError) {
-                showLoadingState(this);
+            }
 
-                try {
-                    console.log('Sending contact form data...');
-                    // Send data to backend
-                    const response = await fetch('http://127.0.0.1:5000/api/contact/submit', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: nameInput.value,
-                            email: emailInput.value,
-                            subject: subjectInput.value,
-                            message: messageInput.value
-                        })
-                    });
-                    
-                    console.log('Response status:', response.status);
+            if (hasError) return;
 
-                    const data = await response.json();                    if (response.ok) {
-                        showSuccessMessage(this, `Thank you for contacting us! We'll respond to ${emailInput.value} shortly.`);
-                        this.reset();
-                    } else {
-                        throw new Error(data.message || 'Failed to send message');
-                    }
-                } catch (error) {
-                    showFormError(nameInput, error.message || 'Failed to send message. Please try again.');
-                } finally {
-                    hideLoadingState(this);
+            // Show loading state
+            showLoadingState(this);
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/contact/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        subject: subjectInput.value.trim(),
+                        message: messageInput.value.trim()
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Clear form
+                    this.reset();
+                    showSuccessMessage(this, 'Thank you! Your message has been sent successfully.');
+                } else {
+                    throw new Error(data.message || 'Failed to send message');
                 }
+            } catch (error) {
+                showFormError(messageInput, error.message || 'An error occurred. Please try again later.');
+            } finally {
+                hideLoadingState(this);
             }
         });
-    }
-
-    // Career form handler
+    }    // Career form handler
     const careerForm = document.querySelector('.career-form');
     if (careerForm) {
         careerForm.addEventListener('submit', async function(e) {
@@ -158,12 +158,17 @@ document.addEventListener('DOMContentLoaded', function() {
             let hasError = false;
 
             // Get form fields
-            const nameInput = this.querySelector('#career-name');
-            const emailInput = this.querySelector('#career-email');
+            const nameInput = this.querySelector('#name');
+            const emailInput = this.querySelector('#email');
+            const phoneInput = this.querySelector('#phone');
+            const positionInput = this.querySelector('#position');
+            const experienceInput = this.querySelector('#experience');
             const resumeInput = this.querySelector('#resume');
+            const coverLetterInput = this.querySelector('#cover_letter');
 
             // Clear previous errors
-            [nameInput, emailInput, resumeInput].forEach(input => clearFormError(input));
+            [nameInput, emailInput, phoneInput, positionInput, experienceInput, resumeInput, coverLetterInput]
+                .forEach(input => clearFormError(input));
 
             // Validate name
             if (!validateName(nameInput.value)) {
@@ -177,10 +182,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 hasError = true;
             }
 
+            // Validate phone
+            if (!validatePhone(phoneInput.value)) {
+                showFormError(phoneInput, 'Please enter a valid phone number');
+                hasError = true;
+            }
+
+            // Validate position
+            if (positionInput.value.trim().length < 2) {
+                showFormError(positionInput, 'Please enter the position you are applying for');
+                hasError = true;
+            }
+
+            // Validate experience
+            if (experienceInput.value < 0) {
+                showFormError(experienceInput, 'Experience cannot be negative');
+                hasError = true;
+            }
+
             // Validate resume file
             if (resumeInput.files.length > 0) {
                 const file = resumeInput.files[0];
-                if (!validateFileType(file)) {
+                if (!validateFileType(file, ['application/pdf'])) {
                     showFormError(resumeInput, 'Please upload a PDF file');
                     hasError = true;
                 }
@@ -193,17 +216,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 hasError = true;
             }
 
+            // Validate cover letter
+            if (coverLetterInput.value.trim().length < 50) {
+                showFormError(coverLetterInput, 'Please write a cover letter (minimum 50 characters)');
+                hasError = true;
+            }
+
             if (!hasError) {
                 showLoadingState(this);
 
                 try {
-                    // Here you would typically send data to your backend
-                    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
-                    
-                    showSuccessMessage(this, 'Thank you for your application! We will review it and get back to you soon.');
-                    this.reset();
-                } catch (error) {
-                    showFormError(resumeInput, 'Failed to submit application. Please try again.');
+                    const formData = new FormData();
+                    formData.append('name', nameInput.value.trim());
+                    formData.append('email', emailInput.value.trim());
+                    formData.append('phone', phoneInput.value.trim());
+                    formData.append('position', positionInput.value.trim());
+                    formData.append('experience', experienceInput.value);
+                    formData.append('resume', resumeInput.files[0]);
+                    formData.append('cover_letter', coverLetterInput.value.trim());
+
+                    const response = await fetch('http://127.0.0.1:5000/api/career/apply', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        this.reset();
+                        showSuccessMessage(this, 'Thank you for your application! We will review it and get back to you soon.');
+                    } else {
+                        throw new Error(data.message || 'Failed to submit application');
+                    }                } catch (error) {
+                    // Show error at form level rather than on a specific input
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'form-error';
+                    errorDiv.style.display = 'block';
+                    errorDiv.textContent = error.message || 'Failed to submit application. Please try again.';
+                    this.insertBefore(errorDiv, this.firstChild);
+                    setTimeout(() => errorDiv.remove(), 5000);
                 } finally {
                     hideLoadingState(this);
                 }
@@ -212,41 +263,41 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Newsletter form handler
-    //const newsletterForm = document.querySelector('.newsletter-form');
-    //if (newsletterForm) {
-    //    newsletterForm.addEventListener('submit', async function(e) {
-    //        e.preventDefault();
-    //        let hasError = false;
-//
-    //        // Get form fields
-    //        const emailInput = this.querySelector('input[type="email"]');
-//
-    //        // Clear previous errors
-    //        clearFormError(emailInput);
-//
-    //        // Validate email
-    //        if (!validateEmail(emailInput.value)) {
-    //            showFormError(emailInput, 'Please enter a valid email address');
-    //            hasError = true;
-    //        }
-//
-    //        if (!hasError) {
-    //            showLoadingState(this);
-//
-    //            try {
-    //                // Here you would typically send data to your backend
-    //                await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
-    //                
-    //                showSuccessMessage(this, 'Thank you for subscribing to our newsletter!');
-    //                this.reset();
-    //            } catch (error) {
-    //                showFormError(emailInput, 'Failed to subscribe. Please try again.');
-    //            } finally {
-    //                hideLoadingState(this);
-    //            }
-    //        }
-    //    });
-    //}
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let hasError = false;
+
+            // Get form fields
+            const emailInput = this.querySelector('input[type="email"]');
+
+            // Clear previous errors
+            clearFormError(emailInput);
+
+            // Validate email
+            if (!validateEmail(emailInput.value)) {
+                showFormError(emailInput, 'Please enter a valid email address');
+                hasError = true;
+            }
+
+            if (!hasError) {
+                showLoadingState(this);
+
+                try {
+                    // Here you would typically send data to your backend
+                    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
+                    
+                    showSuccessMessage(this, 'Thank you for subscribing to our newsletter!');
+                    this.reset();
+                } catch (error) {
+                    showFormError(emailInput, 'Failed to subscribe. Please try again.');
+                } finally {
+                    hideLoadingState(this);
+                }
+            }
+        });
+    }
 
     // Partner registration form handler
     const partnerForm = document.querySelector('.contact-form');
