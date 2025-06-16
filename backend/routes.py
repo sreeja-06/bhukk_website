@@ -15,27 +15,11 @@ ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@routes.route('/api/health')
-def health_check():
-    """Health check endpoint"""
-    return jsonify({
-        'status': 'healthy',
-        'timestamp': datetime.now().isoformat()
-    })
-
 @routes.route('/api/contact', methods=['POST'])
 def contact():
     """Handle contact form submissions"""
     try:
         return handle_contact_form()
-    except Exception as e:
-        return jsonify({'error': str(e)}), 400
-
-@routes.route('/api/career/apply', methods=['POST'])
-def apply_job():
-    """Handle job applications"""
-    try:
-        return handle_career_form()
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
