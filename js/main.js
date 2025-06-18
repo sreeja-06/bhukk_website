@@ -1,20 +1,17 @@
 // Main JavaScript file for BHUKK website
 
 // Wait for DOM to load
-// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded');
     
-    // Initialize mobile menu first
-    initializeMobileMenu();
-    
-    // Initialize other features
+    // Initialize features that don't depend on navbar
     initializeTheme();
     initializeScrollAnimations();
     initializeAIAssistant();
-    initializeNavbar();
     initializeGlassEffects();
-    initializePartnerScroll(); // Add the new initialization
+    initializePartnerScroll();
+    
+    // We don't need to call initializeMobileMenu() here as it's called after navbar loads
 });
 
 // Theme toggling functionality
@@ -182,96 +179,49 @@ if (newsletterForm) {
     });
 }
 
-// Mobile Menu Toggle
+// Mobile menu functionality
 function initializeMobileMenu() {
+    console.log('Initializing mobile menu');
+    
+    // Setup menu toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    const navLinksAnchors = document.querySelectorAll('.nav-links a');
-    const icon = mobileMenuBtn.querySelector('i');
-    let isMenuOpen = false;
-    let isTransitioning = false;
-
-    function toggleMenu(force = null) {
-        if (isTransitioning) return;
-        
-        isTransitioning = true;
-        isMenuOpen = force !== null ? force : !isMenuOpen;
-        
-        if (isMenuOpen) {
-            navLinks.classList.add('active');
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-            document.body.style.overflow = 'hidden';
-        } else {
-            navLinks.classList.remove('active');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-            document.body.style.overflow = '';
-        }
-
-        // Reset transitioning state after animation completes
-        setTimeout(() => {
-            isTransitioning = false;
-        }, 400); // Match this with your CSS transition duration
+    if (!mobileMenuBtn) {
+        console.error('Mobile menu button not found');
+        return;
     }
-    
-    // Menu button click
-    mobileMenuBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        toggleMenu();
-    });
-    
-    // Close menu when clicking nav links
-    navLinksAnchors.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const href = link.getAttribute('href');
-            toggleMenu(false);
-            
-            // Navigate after menu closes
-            setTimeout(() => {
-                if (href.startsWith('#')) {
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                } else {
-                    window.location.href = href;
-                }
-            }, 400);
-        });
+
+    mobileMenuBtn.addEventListener('click', function(event) {
+        event.stopPropagation();
+        const navLinks = document.querySelector('.nav-links');
+        const navActions = document.querySelector('.nav-actions');
+        const menuIcon = this.querySelector('i');
+
+        // Toggle menu visibility
+        navLinks.classList.toggle('show');
+        navActions.classList.toggle('show');
+
+        // Toggle menu icon
+        if (menuIcon.classList.contains('fa-bars')) {
+            menuIcon.classList.remove('fa-bars');
+            menuIcon.classList.add('fa-times');
+        } else {
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+        }
     });
 
     // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (isMenuOpen && 
-            !navLinks.contains(e.target) && 
-            !mobileMenuBtn.contains(e.target)) {
-            toggleMenu(false);
-        }
-    });
-
-    // Handle window resize
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            if (window.innerWidth > 768 && isMenuOpen) {
-                toggleMenu(false);
-            }
-        }, 100);
-    });
-
-    // Prevent clicks inside menu from closing it
-    navLinks.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
-
-    // Handle escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isMenuOpen) {
-            toggleMenu(false);
+    document.addEventListener('click', function(event) {
+        const navLinks = document.querySelector('.nav-links');
+        const navActions = document.querySelector('.nav-actions');
+        const menuBtn = event.target.closest('.mobile-menu-btn');
+        
+        if (!menuBtn && navLinks.classList.contains('show')) {
+            navLinks.classList.remove('show');
+            navActions.classList.remove('show');
+            const menuIcon = document.querySelector('.mobile-menu-btn i');
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
         }
     });
 }

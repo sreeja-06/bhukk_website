@@ -3153,6 +3153,7 @@ body::before {
     backdrop-filter: blur(15px);
     position: relative;
     overflow: hidden;
+    align-items: center;
 }
 
 .partners::after {
