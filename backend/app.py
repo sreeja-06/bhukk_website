@@ -20,6 +20,17 @@ CORS(app, resources={
 })
 
 # Database Configuration
+import psycopg2
+from psycopg2.extras import RealDictCursor
+
+def get_db_connection():
+    return psycopg2.connect(
+        host="localhost",
+        database="bhukk",
+        user="postgres",
+        password="sreeja17."
+    )
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:sreeja17.@localhost:5432/bhukk'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -63,81 +74,124 @@ with app.app_context():
 # Route handlers
 @app.route('/api/contact', methods=['POST'])
 def handle_contact():
+    conn = None
+    cur = None
     try:
         data = request.json
         print('Received contact form data:', data)
         
-        # Create new contact
-        contact = Contact(
-            name=data['name'],
-            email=data['email'],
-            subject=data['subject'],
-            message=data['message']
-        )
+        conn = get_db_connection()
+        cur = conn.cursor()
         
-        db.session.add(contact)
-        db.session.commit()
+        # Insert into contact table using SQL
+        cur.execute("""
+            INSERT INTO contact (name, email, subject, message)
+            VALUES (%s, %s, %s, %s)
+            RETURNING id;
+        """, (data['name'], data['email'], data['subject'], data['message']))
         
-        return jsonify({'message': 'Contact form submitted successfully'}), 201
+        new_contact_id = cur.fetchone()[0]
+        conn.commit()
+        
+        print(f"Contact created with ID: {new_contact_id}")
+        return jsonify({'message': 'Contact form submitted successfully', 'id': new_contact_id}), 201
         
     except Exception as e:
-        db.session.rollback()
+        if conn:
+            conn.rollback()
         print('Error handling contact form:', str(e))
         return jsonify({'error': str(e)}), 500
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
 
 @app.route('/api/delivery-partner', methods=['POST'])
 def handle_delivery_partner():
+    conn = None
+    cur = None
     try:
         data = request.json
         print('Received delivery partner data:', data)
         
-        # Create new delivery partner
-        partner = DeliveryPartner(
-            name=data['name'],
-            email=data['email'],
-            phone=data['phone'],
-            age=int(data['age']),
-            vehicle=data['vehicle'],
-            license=data['license'],
-            experience=data.get('experience', ''),
-            city=data['city']
-        )
+        conn = get_db_connection()
+        cur = conn.cursor()
         
-        db.session.add(partner)
-        db.session.commit()
+        # Insert into delivery table using SQL
+        cur.execute("""
+            INSERT INTO delivery (name, email, phone, age, vehicle, license, experience, city)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            RETURNING id;
+        """, (
+            data['name'],
+            data['email'],
+            data['phone'],
+            int(data['age']),
+            data['vehicle'],
+            data['license'],
+            data.get('experience', ''),
+            data['city']
+        ))
         
-        return jsonify({'message': 'Delivery partner application submitted successfully'}), 201
+        new_partner_id = cur.fetchone()[0]
+        conn.commit()
+        
+        print(f"Delivery partner created with ID: {new_partner_id}")
+        return jsonify({'message': 'Delivery partner application submitted successfully', 'id': new_partner_id}), 201
         
     except Exception as e:
-        db.session.rollback()
+        if conn:
+            conn.rollback()
         print('Error handling delivery partner form:', str(e))
         return jsonify({'error': str(e)}), 500
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
 
 @app.route('/api/restaurant-partner', methods=['POST'])
 def handle_restaurant_partner():
+    conn = None
+    cur = None
     try:
         data = request.json
         print('Received restaurant partner data:', data)
         
-        # Create new restaurant partner
-        partner = RestaurantPartner(
-            contact_name=data['contact_name'],
-            email=data['email'],
-            phone_number=data['phone_number'],
-            restaurant_name=data['restaurant_name'],
-            type=data['type'],
-            additional_info=data.get('additional_info', '')
-        )
+        conn = get_db_connection()
+        cur = conn.cursor()
         
-        db.session.add(partner)
-        db.session.commit()
+        # Insert into restaurant_partner table using SQL
+        cur.execute("""
+            INSERT INTO restaurant_partner (contact_name, email, phone_number, restaurant_name, type, additional_info)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            RETURNING id;
+        """, (
+            data['contact_name'],
+            data['email'],
+            data['phone_number'],
+            data['restaurant_name'],
+            data['type'],
+            data.get('additional_info', '')
+        ))
         
-        return jsonify({'message': 'Restaurant partner application submitted successfully'}), 201
+        new_partner_id = cur.fetchone()[0]
+        conn.commit()
+        
+        print(f"Restaurant partner created with ID: {new_partner_id}")
+        return jsonify({'message': 'Restaurant partner application submitted successfully', 'id': new_partner_id}), 201
         
     except Exception as e:
-        db.session.rollback()
+        if conn:
+            conn.rollback()
         print('Error handling restaurant partner form:', str(e))
         return jsonify({'error': str(e)}), 500
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
 
 # Error handlers
 @app.errorhandler(404)
