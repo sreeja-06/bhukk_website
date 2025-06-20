@@ -17,8 +17,16 @@
 }
 
 .footer-logo {
-    font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
     margin-bottom: 1.5rem;
+}
+
+.footer-logo-img {
+    max-width: 150px;
+    height: auto;
+    width: 100%;
+    object-fit: contain;
 }
 
 .footer-brand p {
@@ -159,5 +167,35 @@
 
     .social-links {
         gap: var(--spacing-sm);
+    }
+}
+
+/* Footer Responsive Styles */
+@media screen and (max-width: 768px) {
+    .footer-logo {
+        margin-bottom: 1rem;
+    }
+
+    .footer-logo-img {
+        max-width: 120px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .footer-logo-img {
+        max-width: 130px;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .footer-logo-img {
+        max-width: 150px;
+    }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {    .footer-logo-img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: pixelated;
     }
 }

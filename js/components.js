@@ -5,43 +5,53 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load footer
     loadFooter();
+    renderEcosystemSection();
 });
 
 // Initialize mobile menu functionality
 function initializeMobileMenu() {
-    console.log('Initializing mobile menu');
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
     const navActions = document.querySelector('.nav-actions');
+    if (!mobileMenuBtn || !navLinks || !navActions) return;
 
-    if (!mobileMenuBtn || !navLinks || !navActions) {
-        console.error('Mobile menu elements not found');
-        return;
+    function openMenu() {
+        navLinks.classList.add('active');
+        navActions.classList.add('active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        const menuIcon = mobileMenuBtn.querySelector('i');
+        menuIcon.classList.remove('fa-bars');
+        menuIcon.classList.add('fa-times');
     }
-
-    // Toggle menu on button click
+    function closeMenu() {
+        navLinks.classList.remove('active');
+        navActions.classList.remove('active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        const menuIcon = mobileMenuBtn.querySelector('i');
+        menuIcon.classList.remove('fa-times');
+        menuIcon.classList.add('fa-bars');
+    }
     mobileMenuBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        console.log('Menu button clicked');
-        
-        navLinks.classList.toggle('show');
-        navActions.classList.toggle('show');
-        
-        // Toggle menu icon
-        const menuIcon = this.querySelector('i');
-        menuIcon.classList.toggle('fa-bars');
-        menuIcon.classList.toggle('fa-times');
+        const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
     });
-
-    // Close menu when clicking outside
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.nav-links') && !e.target.closest('.mobile-menu-btn')) {
-            navLinks.classList.remove('show');
-            navActions.classList.remove('show');
-            const menuIcon = mobileMenuBtn.querySelector('i');
-            menuIcon.classList.remove('fa-times');
-            menuIcon.classList.add('fa-bars');
+            closeMenu();
         }
+    });
+    // Auto-collapse menu after clicking a link (optional enhancement)
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            closeMenu();
+        });
+        link.style.minHeight = '44px';
+        link.style.lineHeight = '44px';
     });
 }
 
@@ -85,4 +95,38 @@ function loadFooter() {
             footerContainer.innerHTML = data;
         })
         .catch(error => console.error('Error loading footer:', error));
+}
+
+// Load ecosystem section dynamically from API
+function renderEcosystemSection() {
+  const section = document.getElementById('ecosystem-section');
+  if (!section) return;
+  // Add a container for the cards
+  section.innerHTML = `
+    <div class="container">
+      <h2>NAIYO24 Ecosystem</h2>
+      <p class="ecosystem-subtitle">Explore our family of innovative solutions</p>
+      <div class="partner-grid" id="ecosystem-cards"></div>
+    </div>
+  `;
+  // Fetch data from backend API (use full URL for dev)
+  fetch('http://127.0.0.1:5000/api/ecosystem')
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('ecosystem-cards');
+      if (!container) return;
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'partner-card';
+        card.innerHTML = `
+          <i class="fas fa-${item.icon_name}"></i>
+          <h3>${item.title}</h3>
+          <p>${item.description}</p>
+        `;
+        container.appendChild(card);
+      });
+    })
+    .catch(err => {
+      section.innerHTML += '<p style="color:red">Failed to load ecosystem data.</p>';
+    });
 }

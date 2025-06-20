@@ -66,6 +66,13 @@ class RestaurantPartner(db.Model):
     type = db.Column(db.String(50), nullable=False)
     additional_info = db.Column(db.Text, nullable=True)
 
+class Ecosystem(db.Model):
+    __tablename__ = 'ecosystem'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    icon_name = db.Column(db.String(100), nullable=False)
+    
 # Create tables
 with app.app_context():
     db.create_all()
@@ -192,7 +199,41 @@ def handle_restaurant_partner():
             cur.close()
         if conn:
             conn.close()
+            
+@app.route('/api/ecosystem', methods=['GET'])
+def get_ecosystem():
+    conn = None
+    cur = None
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # Fetch ecosystem data
+        cur.execute("SELECT title, description, icon_name FROM ecosystem")
+        rows = cur.fetchall()
+        
+        data = []
+        for row in rows:
+            data.append({
+                'title': row[0],
+                'description': row[1],
+                'icon_name': row[2]
+            })
+        
+        print(f"Fetched {len(data)} ecosystem items")
+        return jsonify(data), 200
 
+    except Exception as e:
+        print('Error fetching ecosystem data:', str(e))
+        return jsonify({'error': str(e)}), 500
+
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+
+            
 # Error handlers
 @app.errorhandler(404)
 def not_found_error(error):

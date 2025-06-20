@@ -11,6 +11,8 @@ html {
 .container, .container-wide {
     padding: 0 var(--container-padding);
     width: 100%;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 /* Hero Section Mobile */
@@ -296,6 +298,76 @@ html {
         margin: 0 auto;
         display: block;
     }
+
+    /* Forms Mobile Styles */
+    .contact-form, .partner-form-section form {
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+        width: 100%;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+
+    /* Legal Pages Mobile Styles */
+    .terms-container,
+    .privacy-policy-container,
+    .refund-container,
+    .licensing-container {
+        padding: 1rem;
+    }
+
+    .terms-section,
+    .refund-card,
+    .license-card {
+        margin-bottom: 2rem;
+        padding: 1rem;
+    }
+
+    /* About Us Mobile Styles */
+    .about-container {
+        padding: 1rem;
+    }
+
+    .about-hero {
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    .our-story {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    /* Help Center Mobile Styles */
+    .help-center-container {
+        padding: 1rem;
+    }
+
+    .help-search {
+        padding: 2rem 1rem;
+    }
+
+    .faq-categories {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
 }
 
 /* Tablet Styles */
@@ -381,6 +453,39 @@ html {
 
     .highlight {
         padding: 1.5rem;
+    }
+
+    /* Forms Tablet */
+    .contact-form, .partner-form-section form {
+        padding: 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Legal Pages Tablet */
+    .terms-container,
+    .privacy-policy-container,
+    .refund-container,
+    .licensing-container {
+        padding: 2rem;
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    /* About Us Tablet */
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .our-story {
+        flex-direction: row;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    /* Help Center Tablet */
+    .faq-categories {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -472,94 +577,110 @@ html {
         font-size: 1.1rem;
         font-weight: 500;
     }
+
+    /* Forms Desktop */
+    .contact-form, .partner-form-section form {
+        padding: 3rem;
+        max-width: 800px;
+    }
+
+    /* Legal Pages Desktop */
+    .terms-container,
+    .privacy-policy-container,
+    .refund-container,
+    .licensing-container {
+        padding: 3rem;
+        max-width: 960px;
+    }
+
+    /* About Us Desktop */
+    .values-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* Help Center Desktop */
+    .faq-categories {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 /* Large Desktop Styles */
 @media screen and (min-width: 1440px) {
-    .container-wide {
-        max-width: 1400px;
+    .container, .container-wide {
+        max-width: 1320px;
+    }
+}
+
+/* Common Responsive Components */
+@media screen and (max-width: 767px) {
+    /* Navigation */
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .hero h1 {
-        font-size: 5rem;
+    .nav-links.active {
+        display: block;
     }
 
-    /* About Us Section Responsive Styles */
-    .about-text h3 {
-        font-size: 2.5rem;
+    /* Tables */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
     }
 
-    .about-text p {
-        font-size: 1.1rem;
-        line-height: 1.8;
+    /* Images */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Buttons */
+    button {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    /* Dark mode styles can be added here when needed */
+    :root {
+        --text-color: #fff;
+        --bg-color: #121212;
+    }
+    
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
     }
 }
 
 /* Print Styles */
 @media print {
-    .navbar,
-    .footer,
-    .cta-buttons,
-    .app-stores {
+    .no-print {
         display: none;
     }
-
+    
     body {
-        color: #000;
-        background: #fff;
+        font-size: 12pt;
     }
 
-    .container,
-    .container-wide {
-        width: 100%;
-        max-width: none;
-        padding: 0;
-        margin: 0;
-    }
-}
-
-/* Accessibility and Touch Improvements */
-@media (hover: none) {
-    .btn,
-    .nav-links a,
-    .feature-card,
-    .support-card {
-        cursor: default;
-    }
-
-    .btn:active,
-    .nav-links a:active,
-    .feature-card:active,
-    .support-card:active {
-        transform: scale(0.98);
-    }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --text-color: #FFFFFF;
-        --background-color: #000000;
-    }
-}
-
-/* Reduce Motion */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
-
-/* High Contrast Mode */
-@media (forced-colors: active) {
-    .btn,
-    .feature-card,
-    .support-card {
-        border: 2px solid currentColor;
+    a[href]::after {
+        content: " (" attr(href) ")";
     }
 }

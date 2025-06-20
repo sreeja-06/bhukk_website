@@ -17,6 +17,8 @@
     <header>
         <div id="navbar"></div>
     </header>
+        <div id="navbar"></div>
+    </header>
 
     <!-- Main Content -->
     <main class="contact-career-container">
@@ -24,7 +26,7 @@
         <section class="contact-section">
     <h1>Delivery Partner Application</h1>
     <p>Join our delivery team and become a part of Bhukk's success story.</p>
-    <form id="delivery-partner-form" class="contact-form">
+    <form class="contact-form">
         <div class="form-group">
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" required>
@@ -60,7 +62,7 @@
             <div class="form-error"></div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group"></div>
             <label for="license">Driver's License Number</label>
             <input type="text" id="license" name="license" required>
             <div class="form-error"></div>
@@ -87,5 +89,28 @@
     <div id="footer"></div>    <!-- Scripts -->
     <script src="js/components.js"></script>
     <script src="js/forms.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Load navbar
+                const navResponse = await fetch('elements/navbar.html');
+                const navData = await navResponse.text();
+                document.getElementById('navbar').innerHTML = navData;
+
+                // Load footer
+                const footerResponse = await fetch('elements/footer.html');
+                const footerData = await footerResponse.text();
+                document.getElementById('footer').innerHTML = footerData;
+
+                //load contactForm handler
+                const contactForm = document.querySelector('.contact-form');
+                if (contactForm) {
+                    console.log('Contact form found and initialized');
+                }
+            } catch (error) {
+                console.error('Error loading components:', error);
+            }
+        });
+    </script>
 </body>
 </html>

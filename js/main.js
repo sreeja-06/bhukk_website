@@ -179,53 +179,6 @@ if (newsletterForm) {
     });
 }
 
-// Mobile menu functionality
-function initializeMobileMenu() {
-    console.log('Initializing mobile menu');
-    
-    // Setup menu toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    if (!mobileMenuBtn) {
-        console.error('Mobile menu button not found');
-        return;
-    }
-
-    mobileMenuBtn.addEventListener('click', function(event) {
-        event.stopPropagation();
-        const navLinks = document.querySelector('.nav-links');
-        const navActions = document.querySelector('.nav-actions');
-        const menuIcon = this.querySelector('i');
-
-        // Toggle menu visibility
-        navLinks.classList.toggle('show');
-        navActions.classList.toggle('show');
-
-        // Toggle menu icon
-        if (menuIcon.classList.contains('fa-bars')) {
-            menuIcon.classList.remove('fa-bars');
-            menuIcon.classList.add('fa-times');
-        } else {
-            menuIcon.classList.remove('fa-times');
-            menuIcon.classList.add('fa-bars');
-        }
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
-        const navLinks = document.querySelector('.nav-links');
-        const navActions = document.querySelector('.nav-actions');
-        const menuBtn = event.target.closest('.mobile-menu-btn');
-        
-        if (!menuBtn && navLinks.classList.contains('show')) {
-            navLinks.classList.remove('show');
-            navActions.classList.remove('show');
-            const menuIcon = document.querySelector('.mobile-menu-btn i');
-            menuIcon.classList.remove('fa-times');
-            menuIcon.classList.add('fa-bars');
-        }
-    });
-}
-
 // Coming soon alerts
 function initializeComingSoonAlerts() {
     // Create alert elements if they don't exist
@@ -308,6 +261,29 @@ function initializePartnerScroll() {
     const scrollLeftBtn = document.querySelector('.scroll-left');
     const scrollRightBtn = document.querySelector('.scroll-right');
     const scrollAmount = 300; // Amount to scroll by
+
+    // --- Auto-scroll logic ---
+    if (partnerGrid) {
+        let autoScrollActive = true;
+        let lastUserScroll = Date.now();
+        setInterval(() => {
+            // Debug: log scrollLeft and widths
+            // Remove or comment out after confirming
+            // console.log('Auto-scroll tick', partnerGrid.scrollLeft, partnerGrid.offsetWidth, partnerGrid.scrollWidth);
+            if (!autoScrollActive) return;
+            if (partnerGrid.scrollWidth > partnerGrid.offsetWidth) {
+                if (partnerGrid.scrollLeft + partnerGrid.offsetWidth < partnerGrid.scrollWidth) {
+                    partnerGrid.scrollLeft += 1;
+                } else {
+                    partnerGrid.scrollLeft = 0;
+                }
+            }
+        }, 30);
+        partnerGrid.addEventListener('scroll', () => {
+            lastUserScroll = Date.now();
+        });
+    }
+    // --- End auto-scroll logic ---
 
     if (partnerGrid && scrollLeftBtn && scrollRightBtn) {
         // Left scroll button
