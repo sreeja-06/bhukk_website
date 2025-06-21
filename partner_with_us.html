@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/partner_with_us.css">
+    <link rel="stylesheet" href="css/form_style.css">
     <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="../css/faq.css">
@@ -52,14 +53,14 @@
         <section class="partner-form-section">
             <h2>Get Started</h2>
             <p>Fill out the form below and we'll get in touch with you shortly.</p>
-            <form class="contact-form">
+            <form class="restaurant-partner-form form">
                 <div class="form-group">
                     <label for="restaurant-name">Restaurant Name</label>
-                    <input type="text" id="restaurant-name" name="restaurant-name" required>
+                    <input type="text" id="restaurant-name" name="restaurant_name" required>
                 </div>
                 <div class="form-group">
                     <label for="contact-name">Contact Person</label>
-                    <input type="text" id="contact-name" name="contact-name" required>
+                    <input type="text" id="contact-name" name="contact_name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -67,11 +68,11 @@
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required>
+                    <input type="tel" id="phone" name="phone_number" required>
                 </div>
                 <div class="form-group">
                     <label for="restaurant-type">Restaurant Type</label>
-                    <select id="restaurant-type" name="restaurant-type" required>
+                    <select id="restaurant-type" name="type" class="form-select" required>
                         <option value="">Select a type</option>
                         <option value="fine-dining">Fine Dining</option>
                         <option value="casual">Casual Dining</option>
@@ -82,8 +83,9 @@
                 </div>
                 <div class="form-group">
                     <label for="message">Additional Information</label>
-                    <textarea id="message" name="message" rows="4"></textarea>
-                </div>                <div class="form-submit">
+                    <textarea id="message" name="additional_info" rows="4"></textarea>
+                </div>
+                <div class="form-submit">
                     <button type="submit">Submit Application</button>
                 </div>
             </form>

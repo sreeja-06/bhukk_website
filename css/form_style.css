@@ -33,23 +33,23 @@
 }
 
 /* Form styles */
-.contact-form,
+.form,
 .career-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.contact-form label,
+.form label,
 .career-form label {
     color: var(--text-color);
     margin-bottom: 0.5rem;
     display: block;
 }
 
-.contact-form input,
+.form input,
 .career-form input,
-.contact-form textarea {
+.form textarea {
     width: 100%;
     padding: 1rem;
     background: rgba(255, 255, 255, 0.05);
@@ -59,15 +59,15 @@
     transition: all 0.3s ease;
 }
 
-.contact-form input:focus,
+.form input:focus,
 .career-form input:focus,
-.contact-form textarea:focus {
+.form textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(229, 141, 46, 0.1);
 }
 
-.contact-form textarea {
+.form textarea {
     resize: vertical;
     min-height: 150px;
 }
@@ -95,7 +95,7 @@
 }
 
 /* Submit button styling */
-.contact-form button,
+.form button,
 .career-form button {
     background: var(--gradient-primary);
     color: var(--text-color);
@@ -107,7 +107,7 @@
     transition: all 0.3s ease;
 }
 
-.contact-form button:hover,
+.form button:hover,
 .career-form button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(229, 141, 46, 0.3);

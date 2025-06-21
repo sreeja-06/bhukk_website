@@ -265,13 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } finally {
             hideLoadingState(form);
         }
-    };
-
-    // Attach event listeners to forms
+    };    // Attach event listeners to forms
     const forms = {
-        '#contact-form': handleContactForm,
-        '#delivery-partner-form': handleDeliveryPartnerForm,
-        '#restaurant-partner-form': handleRestaurantPartnerForm
+        '.contact-form': handleContactForm,
+        '.delivery-partner-form': handleDeliveryPartnerForm,
+        '.restaurant-partner-form': handleRestaurantPartnerForm
     };
 
     Object.entries(forms).forEach(([selector, handler]) => {

@@ -143,7 +143,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('../assets/BHUKK.png.png');
+    background-image: url('../assets/hero.png');
     background-size: cover;
     background-position: center;
     z-index: 0;
@@ -332,6 +332,12 @@ body::before {
     gap: var(--spacing-md);
     margin: var(--spacing-md) 0;
     align-items: center;
+}
+
+/* Standardize liquor section icons */
+.gold-benefits .benefit i {
+  color: var(--primary-color);
+  font-size: 2.2rem;
 }
 
 .benefit i.fas.fa-clock,

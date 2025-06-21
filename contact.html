@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/form_style.css">
     <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/contact_career.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="../css/faq.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -27,7 +27,7 @@
         <section class="contact-section">
             <h1>Contact Us</h1>
             <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-              <form class="contact-form">
+              <form class="contact-form form">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -59,15 +59,15 @@
                 <div class="contact-details">
                     <div class="contact-item">
                         <i class="fas fa-phone-alt"></i>
-                        <span>+91 123-456-7890</span>
+                        <span>+91 81004 63128</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span>support@bhukk.com</span>
+                        <span>contact@naiyo24.com</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>123 Food Street, Kolkata, West Bengal, India</span>
+                        <span>1/30, Chittaranjan Colony, Baghajatin, Kolkata-700032</span>
                     </div>
                 </div>
             </div>
@@ -75,11 +75,7 @@
     </main>
 
     <!-- Footer -->
-    <div id="footer"></div>  
-    <div id="bhukk-assistant"></div>
-
-    
-    <!-- Scripts -->
+    <div id="footer"></div>    <!-- Scripts -->
     <script src="js/components.js"></script>
     <script src="js/forms.js"></script>
     <script>
@@ -104,21 +100,6 @@
                 console.error('Error loading components:', error);
             }
         });
-    </script>
-     <script src="../js/faq.js"></script>
-    <script>
-    // Dynamically import bhukk_assistant.html after the footer
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('elements/bhukk_assistant.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('bhukk-assistant').innerHTML = html;
-                // Re-initialize the assistant after HTML is loaded
-                if (typeof initializeBhukkAssistant === 'function') {
-                    initializeBhukkAssistant();
-                }
-            });
-    });
     </script>
 </body>
 </html>
