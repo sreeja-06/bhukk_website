@@ -212,3 +212,27 @@ window.initializePartnerGridAutoScroll = function() {
 
     startAutoScroll();
 };
+
+// Toast popup for liquor delivery (bonus)
+window.showLiquorToast = function() {
+    if (document.getElementById('liquor-toast')) return;
+    const toast = document.createElement('div');
+    toast.id = 'liquor-toast';
+    toast.className = 'toast-popup';
+    toast.innerHTML = '🍾 Liquor delivery now active 24x7!';
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 500);
+    }, 4000);
+};
+
+// Show toast after 5 seconds on homepage
+if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname === '/index.html') {
+    setTimeout(() => {
+        if (typeof window.showLiquorToast === 'function') window.showLiquorToast();
+    }, 5000);
+}
