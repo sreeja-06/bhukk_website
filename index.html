@@ -171,40 +171,37 @@
         </div>
     </section>    <!-- Footer -->
     <div id="footer"></div>
-
-    <!-- BHUKK AI Assistant -->
-    <div class="bhukk-assistant">
-        <button class="assistant-toggle" aria-label="Open BHUKK Assistant" title="Open BHUKK Assistant">
-            <i class="fas fa-robot"></i>
-        </button>
-        <div class="chat-container">
-            <div class="chat-header">
-                <h3>BHUKK Assistant</h3>
-                <button class="chat-close">×</button>
-            </div>
-            <div class="chat-content">
-                <div class="chat-sidebar">
-                    <h4>Help Topics</h4>
-                    <ul class="faq-categories"></ul>
-                </div>
-                <div class="chat-main">
-                    <div class="chat-messages"></div>
-                    <div class="chat-input-area">
-                        <input type="text" placeholder="Type your question..." class="chat-input">
-                        <button class="chat-send" title="Send message">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="bhukk-assistant"></div>
 
     <!-- Load JavaScript files -->
     <script src="../js/components.js"></script>
     <script src="../js/main.js"></script>
-    <script src="../js/faq.js"></script>
     <script src="../js/animations.js"></script>
     <script src="../js/forms.js"></script>
+    <script src="../js/faq.js"></script>
+    <script>
+    // Dynamically import bhukk_assistant.html after the footer
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('elements/bhukk_assistant.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('bhukk-assistant').innerHTML = html;
+                // Re-initialize the assistant after HTML is loaded
+                if (typeof initializeBhukkAssistant === 'function') {
+                    initializeBhukkAssistant();
+                }
+            });
+    });
+
+    // Dynamically import ecosystem.html and initialize auto-scroll
+    fetch('elements/ecosystem.html')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('ecosystem-section').innerHTML = html;
+            if (typeof initializePartnerGridAutoScroll === 'function') {
+                initializePartnerGridAutoScroll();
+            }
+        });
+    </script>
 </body>
 </html>

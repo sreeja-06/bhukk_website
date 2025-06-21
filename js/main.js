@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollAnimations();
     initializeAIAssistant();
     initializeGlassEffects();
-    initializePartnerScroll();
     
     // We don't need to call initializeMobileMenu() here as it's called after navbar loads
 });
@@ -253,69 +252,4 @@ function hideAlert() {
     
     // Restore body scroll
     document.body.style.overflow = '';
-}
-
-// Initialize Partner Section Scroll
-function initializePartnerScroll() {
-    const partnerGrid = document.querySelector('.partner-grid');
-    const scrollLeftBtn = document.querySelector('.scroll-left');
-    const scrollRightBtn = document.querySelector('.scroll-right');
-    const scrollAmount = 300; // Amount to scroll by
-
-    // --- Auto-scroll logic ---
-    if (partnerGrid) {
-        let autoScrollActive = true;
-        let lastUserScroll = Date.now();
-        setInterval(() => {
-            // Debug: log scrollLeft and widths
-            // Remove or comment out after confirming
-            // console.log('Auto-scroll tick', partnerGrid.scrollLeft, partnerGrid.offsetWidth, partnerGrid.scrollWidth);
-            if (!autoScrollActive) return;
-            if (partnerGrid.scrollWidth > partnerGrid.offsetWidth) {
-                if (partnerGrid.scrollLeft + partnerGrid.offsetWidth < partnerGrid.scrollWidth) {
-                    partnerGrid.scrollLeft += 1;
-                } else {
-                    partnerGrid.scrollLeft = 0;
-                }
-            }
-        }, 30);
-        partnerGrid.addEventListener('scroll', () => {
-            lastUserScroll = Date.now();
-        });
-    }
-    // --- End auto-scroll logic ---
-
-    if (partnerGrid && scrollLeftBtn && scrollRightBtn) {
-        // Left scroll button
-        scrollLeftBtn.addEventListener('click', () => {
-            partnerGrid.scrollBy({
-                left: -scrollAmount,
-                behavior: 'smooth'
-            });
-        });
-
-        // Right scroll button
-        scrollRightBtn.addEventListener('click', () => {
-            partnerGrid.scrollBy({
-                left: scrollAmount,
-                behavior: 'smooth'
-            });
-        });
-
-        // Show/hide buttons based on scroll position
-        partnerGrid.addEventListener('scroll', () => {
-            const isAtStart = partnerGrid.scrollLeft === 0;
-            const isAtEnd = partnerGrid.scrollLeft + partnerGrid.offsetWidth >= partnerGrid.scrollWidth;
-
-            scrollLeftBtn.style.opacity = isAtStart ? '0.5' : '1';
-            scrollRightBtn.style.opacity = isAtEnd ? '0.5' : '1';
-            
-            scrollLeftBtn.style.pointerEvents = isAtStart ? 'none' : 'all';
-            scrollRightBtn.style.pointerEvents = isAtEnd ? 'none' : 'all';
-        });
-
-        // Initial button state
-        scrollLeftBtn.style.opacity = '0.5';
-        scrollLeftBtn.style.pointerEvents = 'none';
-    }
 }

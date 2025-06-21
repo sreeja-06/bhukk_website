@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/refund_policy.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="../css/faq.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -169,8 +170,25 @@
 
     <!-- Footer -->
     <div id="footer"></div>
+    <div id="bhukk-assistant"></div>
+
 
     <!-- Scripts -->
     <script src="js/components.js"></script>
+     <script src="../js/faq.js"></script>
+    <script>
+    // Dynamically import bhukk_assistant.html after the footer
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('elements/bhukk_assistant.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('bhukk-assistant').innerHTML = html;
+                // Re-initialize the assistant after HTML is loaded
+                if (typeof initializeBhukkAssistant === 'function') {
+                    initializeBhukkAssistant();
+                }
+            });
+    });
+    </script>
 </body>
 </html>

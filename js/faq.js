@@ -58,9 +58,10 @@ const faqs = {
     ]
 };
 
-// Initialize chat functionality
-document.addEventListener('DOMContentLoaded', () => {
+// Expose initialization as a function for dynamic import
+window.initializeBhukkAssistant = function() {
     const assistant = document.querySelector('.bhukk-assistant');
+    if (!assistant) return;
     const toggleBtn = assistant.querySelector('.assistant-toggle');
     const chatContainer = assistant.querySelector('.chat-container');
     const closeBtn = assistant.querySelector('.chat-close');
@@ -186,5 +187,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize categories
     initializeCategories();
-});
+};
 

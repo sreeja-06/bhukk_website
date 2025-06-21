@@ -130,3 +130,85 @@ function renderEcosystemSection() {
       section.innerHTML += '<p style="color:red">Failed to load ecosystem data.</p>';
     });
 }
+
+// Expose infinite auto-scroll for .partner-grid as a function
+window.initializePartnerGridAutoScroll = function() {
+    const grid = document.querySelector('.partner-grid');
+    if (!grid) return;
+    let autoScroll = true;
+    let scrollInterval;
+    let scrollDirection = 1; // 1 for right, -1 for left
+    const scrollSpeed = 1; // px per tick
+    const scrollDelay = 20; // ms per tick
+    const threshold = 2; // pixels from edge to trigger direction change
+
+    function startAutoScroll() {
+        if (scrollInterval) clearInterval(scrollInterval);
+        scrollInterval = setInterval(() => {
+            if (!autoScroll) return;
+            
+            const atEnd = grid.scrollLeft + grid.offsetWidth >= grid.scrollWidth - threshold;
+            const atStart = grid.scrollLeft <= threshold;
+
+            // Change direction when reaching edges
+            if (atEnd && scrollDirection > 0) {
+                scrollDirection = -1;
+            } else if (atStart && scrollDirection < 0) {
+                scrollDirection = 1;
+            }
+
+            // Apply scroll with current direction
+            grid.scrollLeft += (scrollSpeed * scrollDirection);
+        }, scrollDelay);
+    }
+
+    function stopAutoScroll() {
+        if (scrollInterval) clearInterval(scrollInterval);
+    }
+
+    // Pause on hover or mousedown
+    grid.addEventListener('mouseenter', () => {
+        autoScroll = false;
+    });
+
+    // Resume on mouseleave
+    grid.addEventListener('mouseleave', () => {
+        autoScroll = true;
+    });
+
+    // Pause on mousedown (for manual scroll)
+    grid.addEventListener('mousedown', () => {
+        autoScroll = false;
+    });
+
+    // Resume on mouseup
+    grid.addEventListener('mouseup', () => {
+        autoScroll = true;
+    });
+
+    // Handle manual scroll without breaking auto-scroll
+    let userScrolling = false;
+    grid.addEventListener('scroll', () => {
+        if (userScrolling || !autoScroll) return;
+        
+        // Don't reset scroll position during auto-scroll
+        const atEnd = grid.scrollLeft + grid.offsetWidth >= grid.scrollWidth - threshold;
+        const atStart = grid.scrollLeft <= threshold;
+
+        if (atEnd && scrollDirection > 0) {
+            scrollDirection = -1;
+        } else if (atStart && scrollDirection < 0) {
+            scrollDirection = 1;
+        }
+    });
+
+    // Track manual scroll
+    grid.addEventListener('scrollend', () => {
+        userScrolling = false;
+    });
+    grid.addEventListener('scrollstart', () => {
+        userScrolling = true;
+    });
+
+    startAutoScroll();
+};

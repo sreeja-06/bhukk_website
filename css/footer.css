@@ -23,10 +23,10 @@
 }
 
 .footer-logo-img {
-    max-width: 150px;
-    height: auto;
+    min-width: 200px;
+    height: 130px;
     width: 100%;
-    object-fit: contain;
+    object-fit: flex;
 }
 
 .footer-brand p {
